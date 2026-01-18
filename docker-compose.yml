@@ -5,7 +5,7 @@ services:
       - "3000:3000"
     environment:
       # Database
-      DATABASE_URL: ${DATABASE_URL:-file:/data/db.sqlite}
+      DATABASE_URL: ${DATABASE_URL_DOCKER:-file:/data/db.sqlite}
       NODE_ENV: production
       PORT: 3000
       HOSTNAME: 0.0.0.0
