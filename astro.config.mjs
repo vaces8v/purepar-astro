@@ -8,7 +8,7 @@ export default defineConfig({
     site: 'https://purepar.ru',
     output: 'static',
     adapter: node({
-        mode: 'standalone'
+        mode: 'middleware'
     }),
     compressHTML: true,
     integrations: [sitemap()],
