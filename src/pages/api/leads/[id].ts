@@ -14,8 +14,8 @@ export const PATCH: APIRoute = async ({ params, request }) => {
     });
   }
 
-  const id = parseInt(params.id || '');
-  if (isNaN(id)) {
+  const id = params.id;
+  if (!id) {
     return new Response(JSON.stringify({ error: 'Invalid ID' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' },
@@ -53,8 +53,8 @@ export const DELETE: APIRoute = async ({ params, request }) => {
     });
   }
 
-  const id = parseInt(params.id || '');
-  if (isNaN(id)) {
+  const id = params.id;
+  if (!id) {
     return new Response(JSON.stringify({ error: 'Invalid ID' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' },

@@ -364,22 +364,35 @@ const statusColors: Record<string, string> = {
         const id = target.dataset.id;
         const status = target.value;
         
-        await fetch(`/api/leads/${id}`, {
+        if (!id) return;
+
+        const response = await fetch(`/api/leads/${id}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ status }),
         });
+
+        if (!response.ok) {
+          const errText = await response.text().catch(() => '');
+          alert(`Ошибка обновления статуса (${response.status})${errText ? `: ${errText}` : ''}`);
+        }
       });
     });
 
     // Delete
     document.querySelectorAll('.delete-btn').forEach((btn) => {
       btn.addEventListener('click', async (e) => {
-        const target = e.target as HTMLButtonElement;
+        const target = e.currentTarget as HTMLButtonElement;
         const id = target.dataset.id;
+        if (!id) return;
         
         if (confirm('Удалить заявку?')) {
-          await fetch(`/api/leads/${id}`, { method: 'DELETE' });
+          const response = await fetch(`/api/leads/${id}`, { method: 'DELETE' });
+          if (!response.ok) {
+            const errText = await response.text().catch(() => '');
+            alert(`Ошибка удаления (${response.status})${errText ? `: ${errText}` : ''}`);
+            return;
+          }
           window.location.reload();
         }
       });
