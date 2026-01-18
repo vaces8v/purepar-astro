@@ -9,6 +9,22 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.11"
+    "@astrojs/node": "^9.5.2",
+    "@astrojs/sitemap": "^3.7.0",
+    "@fontsource/montserrat": "^5.2.8",
+    "@libsql/client": "^0.17.0",
+    "@prisma/adapter-libsql": "^7.2.0",
+    "@prisma/client": "^7.2.0",
+    "@types/compression": "^1.8.1",
+    "astro": "^5.16.11",
+    "bcryptjs": "^3.0.3",
+    "compression": "^1.8.1",
+    "jsonwebtoken": "^9.0.3",
+    "prisma": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "dotenv": "^17.2.3"
   }
 }

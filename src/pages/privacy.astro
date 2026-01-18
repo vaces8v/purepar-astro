@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Политика конфиденциальности — PurePar"
+  description="Политика обработки персональных данных PurePar. Узнайте, как мы защищаем вашу информацию."
+  heroTag="Документы"
+  heroTitle="Политика конфиденциальности"
+  heroSubtitle="Как мы защищаем вашу информацию"
+>
+  <section class="legal-page">
+    <div class="container">
+      <p class="date">Последнее обновление: 4 января 2026 г.</p>
+
+      <div class="content">
+        <section>
+          <h2>1. Общие положения</h2>
+          <p>Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006 №152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных PurePar (далее — Оператор).</p>
+          <p>Оператор ставит своей важнейшей целью и условием осуществления своей деятельности соблюдение прав и свобод человека и гражданина при обработке его персональных данных.</p>
+        </section>
+
+        <section>
+          <h2>2. Основные понятия</h2>
+          <ul>
+            <li><strong>Персональные данные</strong> — любая информация, относящаяся прямо или косвенно к определенному или определяемому Пользователю веб-сайта.</li>
+            <li><strong>Пользователь</strong> — любой посетитель веб-сайта PurePar.</li>
+            <li><strong>Обработка персональных данных</strong> — любое действие с персональными данными.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3. Какие данные мы собираем</h2>
+          <p>Мы можем собирать следующие персональные данные:</p>
+          <ul>
+            <li>Фамилия, имя, отчество;</li>
+            <li>Номер телефона;</li>
+            <li>Адрес электронной почты;</li>
+            <li>Обезличенные данные о посетителях (файлы «cookie»).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>4. Цели обработки</h2>
+          <p>Цель обработки — информирование Пользователя, предоставление доступа к сервисам, уточнение деталей заказа и предоставление консультаций.</p>
+        </section>
+
+        <section>
+          <h2>5. Правовые основания</h2>
+          <p>Оператор обрабатывает персональные данные только в случае их заполнения Пользователем самостоятельно через формы на сайте. Заполняя формы, Пользователь выражает согласие с данной Политикой.</p>
+        </section>
+
+        <section>
+          <h2>6. Безопасность данных</h2>
+          <p>Безопасность персональных данных обеспечивается путем реализации правовых, организационных и технических мер в соответствии с законодательством РФ.</p>
+        </section>
+
+        <section>
+          <h2>7. Заключительные положения</h2>
+          <p>Пользователь может получить разъяснения по вопросам обработки персональных данных, обратившись по телефону, указанному на сайте.</p>
+        </section>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:inline>
+  .legal-page { padding: 40px 0 80px; }
+  .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 40px; transition: color 0.2s; }
+  .back-link:hover { color: var(--accent-dark); }
+  .legal-page h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin: 0 0 16px; }
+  .legal-page h1 .accent { color: var(--accent); }
+  .date { color: var(--text-muted); font-size: 14px; margin-bottom: 48px; }
+  .content { max-width: 800px; }
+  .content section { margin-bottom: 40px; }
+  .content h2 { font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 16px; }
+  .content p { color: var(--text-muted); line-height: 1.7; margin-bottom: 12px; }
+  .content ul { color: var(--text-muted); padding-left: 24px; margin: 12px 0; }
+  .content li { margin-bottom: 8px; line-height: 1.6; }
+  .content strong { color: var(--text); }
+</style>

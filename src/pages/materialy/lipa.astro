@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Отделка бани липой под ключ в Москве — от 480 000 ₽ | PurePar"
+  description="Профессиональная отделка бани липой камерной сушки. Низкая теплопроводность, целебный аромат. Гарантия 1 год."
+  heroTag="Материалы"
+  heroTitle="Отделка бани липой"
+  heroSubtitle="Классический материал для русской бани. Липа обладает целебными свойствами, приятным ароматом и низкой теплопроводностью."
+>
+  <section class="material-content">
+    <div class="container">
+      <div class="content-grid">
+        <div class="features-block">
+          <h2>Преимущества липы</h2>
+          <ul class="features-list">
+            <li><span class="check">✓</span> Низкая теплопроводность — не обжигает кожу</li>
+            <li><span class="check">✓</span> Целебные свойства для органов дыхания</li>
+            <li><span class="check">✓</span> Приятный медовый аромат при нагреве</li>
+            <li><span class="check">✓</span> Не выделяет смолу</li>
+            <li><span class="check">✓</span> Светлый оттенок сохраняется долго</li>
+            <li><span class="check">✓</span> Оптимальное соотношение цена/качество</li>
+          </ul>
+        </div>
+        <div class="info-block">
+          <h2>Характеристики</h2>
+          <dl class="specs">
+            <dt>Плотность</dt><dd>490-530 кг/м³</dd>
+            <dt>Теплопроводность</dt><dd>0.15 Вт/(м·К)</dd>
+            <dt>Влажность</dt><dd>8-12% (камерная сушка)</dd>
+            <dt>Срок службы</dt><dd>15-20 лет</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Выбрали липу?</h2>
+        <p>Оставьте заявку — рассчитаем стоимость отделки вашей бани</p>
+        <a href="/#contact-form" class="btn btn-primary">Получить расчёт</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:inline>
+  .material-hero { padding: 40px 0 60px; background: var(--bg-warm); }
+  .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .material-hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin: 0 0 16px; }
+  .hero-text { font-size: 18px; color: var(--text-muted); max-width: 700px; margin: 0 0 32px; line-height: 1.6; }
+  .hero-price { display: flex; align-items: baseline; gap: 12px; margin-bottom: 32px; }
+  .price-label { font-size: 14px; color: var(--text-muted); }
+  .price-value { font-size: 32px; font-weight: 800; color: var(--accent); }
+  .material-content { padding: 80px 0; }
+  .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .features-block h2, .info-block h2 { font-size: 24px; font-weight: 700; margin: 0 0 24px; }
+  .features-list { list-style: none; padding: 0; margin: 0; }
+  .features-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+  .check { color: var(--accent); font-weight: 700; }
+  .specs { margin: 0; }
+  .specs dt { font-weight: 600; color: var(--text-muted); font-size: 13px; margin-top: 16px; }
+  .specs dd { margin: 4px 0 0; font-size: 16px; font-weight: 600; }
+  .cta-section { padding: 80px 0; }
+  .cta-box { background: var(--text); color: var(--white); padding: 48px; border-radius: var(--radius); text-align: center; }
+  .cta-box h2 { font-size: 28px; font-weight: 700; margin: 0 0 12px; }
+  .cta-box p { color: rgba(255,255,255,0.8); margin: 0 0 24px; }
+  @media (max-width: 768px) { .content-grid { grid-template-columns: 1fr; } .cta-box { padding: 32px 24px; } }
+</style>

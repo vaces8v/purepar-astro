@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://purepar.ru/sitemap-index.xml
+
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /admin/

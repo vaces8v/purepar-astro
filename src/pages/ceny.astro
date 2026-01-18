@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const services = [
+  { name: 'Строительство бани под ключ', price: 'от 500 000 ₽', desc: 'Фундамент, сруб, кровля, отделка, печь', link: '/uslugi/stroitelstvo-bani' },
+  { name: 'Отделка бани', price: 'от 400 000 ₽', desc: 'Каркас, утепление, пароизоляция, вагонка, полки', link: '/uslugi/otdelka-bani' },
+  { name: 'Отделка сауны', price: 'от 336 000 ₽', desc: 'Термоизоляция, вагонка, полки, печь, вентиляция', link: '/uslugi/otdelka-sauny' },
+  { name: 'Ремонт бани', price: 'от 300 000 ₽', desc: 'Демонтаж, замена отделки, ремонт печи', link: '/uslugi/remont-bani' },
+  { name: 'Хаммам под ключ', price: 'от 1 000 000 ₽', desc: 'Гидроизоляция, мозаика, парогенератор, лежаки', link: '/uslugi/hammam' },
+  { name: 'ИК-сауна', price: 'от 300 000 ₽', desc: 'Кабина, излучатели, отделка, подключение', link: '/uslugi/infrakrasnaya-sauna' },
+];
+
+const materials = [
+  { name: 'Осина', price: 'от 400 000 ₽', desc: 'Бюджетный вариант с хорошими характеристиками' },
+  { name: 'Липа', price: 'от 480 000 ₽', desc: 'Классика для русской бани, медовый аромат' },
+  { name: 'Ольха', price: 'от 560 000 ₽', desc: 'Благородный оттенок, высокая влагостойкость' },
+  { name: 'Кедр', price: 'от 720 000 ₽', desc: 'Премиум-класс, антисептические свойства' },
+  { name: 'Абаш', price: 'от 880 000 ₽', desc: 'Элитный материал для саун, не нагревается' },
+];
+
+const faq = [
+  { q: 'Как формируется цена?', a: 'Цена зависит от площади, материала, сложности проекта. Точную смету составим после бесплатного замера.' },
+  { q: 'Включены ли материалы?', a: 'Да, все цены — под ключ, включая материалы, доставку и монтаж. Никаких скрытых платежей.' },
+  { q: 'Можно зафиксировать цену?', a: 'Да, после согласования сметы фиксируем цену в договоре. Стоимость не изменится.' },
+  { q: 'Есть ли рассрочка?', a: 'Работаем по предоплате 50%, остальное — после завершения. Возможна поэтапная оплата.' },
+];
+---
+
+<BaseLayout 
+  title="Цены на строительство и отделку бань 2026 — PurePar"
+  description="Актуальные цены на строительство и отделку бань под ключ в Москве. Фиксированная стоимость по договору. От 300 000 ₽."
+  heroTag="Прайс-лист"
+  heroTitle="Цены на отделку бань и саун"
+  heroSubtitle="Актуальные цены 2026 года. Фиксированная стоимость по договору. Все цены — под ключ с материалами."
+>
+
+  <section class="prices-section">
+    <div class="container">
+      <h2>Услуги</h2>
+      <div class="prices-grid">
+        {services.map(s => (
+          <a href={s.link} class="price-card">
+            <h3>{s.name}</h3>
+            <p>{s.desc}</p>
+            <div class="price">{s.price}</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="materials-prices">
+    <div class="container">
+      <h2>Стоимость по материалам</h2>
+      <p class="section-desc">Цены на отделку парной 6-8 м² с учётом материала</p>
+      <div class="materials-table">
+        {materials.map(m => (
+          <div class="material-row">
+            <div class="material-info">
+              <strong>{m.name}</strong>
+              <span>{m.desc}</span>
+            </div>
+            <div class="material-price">{m.price}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <h2>Частые вопросы о ценах</h2>
+      <div class="faq-list">
+        {faq.map(f => (
+          <details class="faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Рассчитать стоимость</h2>
+        <p>Оставьте заявку — приедем, замерим и составим точную смету бесплатно</p>
+        <a href="/#contact-form" class="btn btn-primary">Заказать расчёт</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:inline>
+  .page-hero { padding: 60px 0 40px; text-align: center; }
+  .section-tag { display: inline-block; background: var(--accent-light); color: #6B4400; padding: 8px 20px; border-radius: 100px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .page-hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin: 0 0 16px; }
+  .page-hero p { color: var(--text-muted); font-size: 18px; max-width: 600px; margin: 0 auto; }
+
+  .prices-section { padding: 60px 0; }
+  .prices-section h2, .materials-prices h2, .faq-section h2 { font-size: 28px; font-weight: 700; margin: 0 0 32px; text-align: center; }
+  .prices-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .price-card { background: var(--white); padding: 28px; border-radius: var(--radius); border: 1px solid var(--border); text-decoration: none; color: inherit; transition: all 0.3s; }
+  .price-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); border-color: var(--accent); }
+  .price-card h3 { font-size: 18px; font-weight: 700; margin: 0 0 8px; }
+  .price-card p { font-size: 14px; color: var(--text-muted); margin: 0 0 16px; }
+  .price-card .price { font-size: 24px; font-weight: 800; color: var(--accent); }
+
+  .materials-prices { padding: 60px 0; background: var(--bg-warm); }
+  .section-desc { text-align: center; color: var(--text-muted); margin: -16px 0 32px; }
+  .materials-table { max-width: 700px; margin: 0 auto; background: var(--white); border-radius: var(--radius); overflow: hidden; }
+  .material-row { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid var(--border); }
+  .material-row:last-child { border-bottom: none; }
+  .material-info strong { display: block; font-size: 16px; margin-bottom: 4px; }
+  .material-info span { font-size: 13px; color: var(--text-muted); }
+  .material-price { font-size: 18px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+
+  .faq-section { padding: 60px 0; }
+  .faq-list { max-width: 700px; margin: 0 auto; }
+  .faq-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 12px; }
+  .faq-item summary { padding: 20px 24px; font-weight: 600; cursor: pointer; list-style: none; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item p { padding: 0 24px 20px; color: var(--text-muted); margin: 0; }
+
+  .cta-section { padding: 60px 0; }
+  .cta-box { background: var(--text); color: var(--white); padding: 48px; border-radius: var(--radius); text-align: center; }
+  .cta-box h2 { font-size: 28px; margin: 0 0 12px; }
+  .cta-box p { color: rgba(255,255,255,0.8); margin: 0 0 24px; }
+
+  @media (max-width: 900px) { .prices-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .prices-grid { grid-template-columns: 1fr; } .cta-box { padding: 32px 24px; } }
+</style>

@@ -1,16 +1,1375 @@
 ---
+const CONTACT = {
+  phoneRaw: '79165835566',
+  phoneDisplay: '+7 (916) 583-55-66',
+  telegramUrl: 'https://t.me/79165835566',
+  whatsappUrl: 'https://wa.me/79165835566',
+} as const;
 
+import { Image, getImage } from 'astro:assets';
+import Analytics from '../components/Analytics.astro';
+import heroImg from '../assets/images/IMG-20250814-WA0004.jpg';
+import aboutImg from '../assets/images/master.jpg';
+
+import serviceBuildImg from '../assets/images/uslugi/card1.png';
+import serviceFinishImg from '../assets/images/uslugi/card2.png';
+import serviceRepairImg from '../assets/images/uslugi/card3.png';
+
+import gallery1Img from '../assets/images/20251219_161625.jpg';
+import gallery2Img from '../assets/images/20251219_161638.jpg';
+import gallery3Img from '../assets/images/20251219_161652.jpg';
+import gallery4Img from '../assets/images/20251219_161705.jpg';
+import gallery5Img from '../assets/images/20251008_122449.jpg';
+import gallery6Img from '../assets/images/20251008_122545.jpg';
+import gallery7Img from '../assets/images/20250919_125436.jpg';
+import gallery8Img from '../assets/images/20250919_125455.jpg';
+
+const siteName = 'PurePar';
+const title = 'Строительство бань и саун под ключ | PurePar — Москва и МО';
+const description = 'Строим бани и сауны под ключ от 300 000₽. Гарантия 1 год. Сроки от 14 дней. Бесплатная консультация ☎ +7 (916) 583-55-66';
+
+const galleryImages = [
+  gallery1Img,
+  gallery2Img,
+  gallery3Img,
+  gallery4Img,
+  gallery5Img,
+  gallery6Img,
+  gallery7Img,
+  gallery8Img,
+] as const;
+
+const publicGalleryImages = [
+  '/20250705_083218.jpg',
+  '/20250705_083244.jpg',
+  '/20250705_083255.jpg',
+  '/20250705_100103.jpg',
+  '/20250919_125459.jpg',
+  '/20251008_122509.jpg',
+  '/20251008_122518.jpg',
+  '/20251008_123323.jpg',
+  '/20251219_161607.jpg',
+  '/20251219_161644.jpg',
+  '/20251219_161717.jpg',
+  '/20251219_161728.jpg',
+] as const;
+
+const galleryThumbs = await Promise.all(
+  galleryImages.map((img) =>
+    getImage({
+      src: img,
+      widths: [240, 360, 480, 640],
+      sizes: '(max-width: 767px) 50vw, (max-width: 1200px) 25vw, 280px',
+      format: 'webp',
+      quality: 'high',
+    })
+  )
+);
+
+const galleryFull = await Promise.all(
+  galleryImages.map((img) =>
+    getImage({
+      src: img,
+      width: 1600,
+      format: 'webp',
+      quality: 'high',
+    })
+  )
+);
+
+const year = new Date().getFullYear();
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="строительство бань, баня под ключ, сауна под ключ, отделка бань, Москва" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/og-image.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" as="style" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" /></noscript>
+    <style>
+      *{margin:0;padding:0;box-sizing:border-box}
+      :root{--bg:#FAFAF8;--text:#1A1A1A;--accent:#A86400;--white:#FFFFFF;--border:#E5E0D8}
+      html{scroll-behavior:smooth}
+      body{font-family:'Montserrat',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;margin:0}
+      .container{max-width:1200px;margin:0 auto;padding:0 20px}
+      img{max-width:100%;height:auto;display:block}
+      .header{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;padding:14px 0}
+      .header-inner{display:flex;align-items:center;justify-content:space-between}
+      .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:700;font-size:18px}
+      .nav{display:none;gap:36px}
+      .nav a{text-decoration:none;color:rgba(255,255,255,0.9);font-weight:500;font-size:15px}
+      .header-phone{display:none;font-weight:600;color:#fff;text-decoration:none}
+      .burger{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+      .burger span{display:block;width:24px;height:2px;background:#fff}
+      .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:100px 0 60px;overflow:hidden}
+      .hero-bg{position:absolute;inset:0;z-index:0}
+      .hero-bg-img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/9}
+      .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,26,26,0.85) 0%,rgba(26,26,26,0.6) 50%,rgba(196,132,29,0.3) 100%)}
+      .hero-inner{position:relative;z-index:1;display:grid;gap:40px;align-items:center}
+      .hero-content{color:#fff}
+      .hero h1{font-size:clamp(32px,8vw,64px);font-weight:800;line-height:1.1;margin-bottom:20px}
+      .hero h1 span{color:var(--accent)}
+      .hero-content>p{font-size:17px;opacity:0.9;margin-bottom:32px;max-width:480px;line-height:1.7}
+      .form-card{background:#fff;padding:32px;border-radius:16px}
+      .mobile-menu{position:fixed;top:65px;left:0;right:0;bottom:0;background:#fff;z-index:99;opacity:0;visibility:hidden}
+      @media(min-width:768px){.nav{display:flex}.header-phone{display:block}.burger{display:none}}
+    </style>
+  </head>
+  <body>
+    <header class="header" id="header">
+      <div class="container header-inner">
+        <a href="/" class="logo">
+          <img src="/logo.png" alt="PurePar логотип" width="36" height="36" />
+          <span>PurePar</span>
+        </a>
+        <nav class="nav">
+          <a href="#services">Услуги</a>
+          <a href="#gallery">Работы</a>
+          <a href="#master">О мастере</a>
+          <a href="#contact-form">Контакты</a>
+        </nav>
+        <a href={`tel:+${CONTACT.phoneRaw}`} class="header-phone">{CONTACT.phoneDisplay}</a>
+        <button class="burger" id="burger" aria-label="Меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <nav class="mobile-nav">
+        <a href="#services">Услуги</a>
+        <a href="#gallery">Работы</a>
+        <a href="#master">О мастере</a>
+        <a href="#contact-form">Контакты</a>
+        <a href={`tel:+${CONTACT.phoneRaw}`} class="mobile-phone">{CONTACT.phoneDisplay}</a>
+      </nav>
+    </div>
+
+    <section class="hero">
+      <div class="hero-bg">
+        <Image
+          src={heroImg}
+          alt="Задний фон"
+          class="hero-bg-img"
+          widths={[768, 1024, 1280, 1600]}
+          sizes="100vw"
+          width={1600}
+          height={900}
+          loading="eager"
+          decoding="sync"
+        />
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="pulse"></span>
+            10+ лет опыта
+          </div>
+          <h1>Бани и сауны<br/><span>под ключ</span></h1>
+          <p>Строим качественные бани в Москве и области.<br/>Работаем по договору с гарантией 1 год.</p>
+          <div class="hero-btns">
+            <a href="#contact-form" class="btn btn-primary btn-mobile-full">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Бесплатная консультация
+            </a>
+            <a href={CONTACT.whatsappUrl} target="_blank" rel="noopener" class="btn btn-glass btn-mobile-full">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>300+</strong>
+              <span>проектов</span>
+            </div>
+            <div class="stat">
+              <strong>14</strong>
+              <span>дней мин.</span>
+            </div>
+            <div class="stat">
+              <strong>1 год</strong>
+              <span>гарантия</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-form" id="contact">
+          <div class="form-card">
+            <div class="form-header">
+              <h2>Получить расчёт</h2>
+              <p>Бесплатно рассчитаем стоимость вашего проекта</p>
+            </div>
+            <form id="lead-form">
+              <div class="input-group">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <input type="text" name="name" placeholder="Ваше имя" required />
+              </div>
+              <div class="input-group">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <input type="tel" name="phone" id="phone-input" placeholder="+7 (___) ___-__-__" required />
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">
+                Получить расчёт
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </form>
+            <div class="form-footer">
+              <span>Или напишите нам:</span>
+              <div class="form-links">
+                <a href={CONTACT.whatsappUrl} target="_blank" rel="noopener">WhatsApp</a>
+                <a href={CONTACT.telegramUrl} target="_blank" rel="noopener">Telegram</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="services">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Наши услуги</span>
+          <h2>Создаём бани вашей мечты</h2>
+          <p>От проектирования до сдачи объекта — всё берём на себя</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-img">
+              <Image
+                src={serviceBuildImg}
+                alt="Строительство бань"
+                widths={[320, 480, 640, 800]}
+                sizes="(max-width: 767px) 100vw, (max-width: 1200px) 33vw, 380px"
+                loading="lazy"
+              />
+              <span class="service-badge">Хит</span>
+            </div>
+            <div class="service-body">
+              <h3>Строительство бань</h3>
+              <p>Каркасные, брусовые и бревенчатые бани любой сложности. Полный цикл: от фундамента до финишной отделки.</p>
+              <ul class="service-features">
+                <li>✓ Проект под ваш участок</li>
+                <li>✓ Качественная древесина</li>
+                <li>✓ Монтаж печи и дымохода</li>
+              </ul>
+              <div class="service-footer">
+                <div class="service-price">
+                  <span>от</span>
+                  <strong>300 000 ₽</strong>
+                </div>
+                <a href="#contact-form" class="btn btn-sm">Заказать</a>
+              </div>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-img">
+              <Image
+                src={serviceFinishImg}
+                alt="Отделка саун"
+                widths={[320, 480, 640, 800]}
+                sizes="(max-width: 767px) 100vw, (max-width: 1200px) 33vw, 380px"
+                loading="lazy"
+              />
+            </div>
+            <div class="service-body">
+              <h3>Отделка саун</h3>
+              <p>Внутренняя отделка парных премиум-класса. Используем только проверенные материалы.</p>
+              <ul class="service-features">
+                <li>✓ Вагонка из липы/кедра</li>
+                <li>✓ Полки и подспинники</li>
+                <li>✓ Освещение и вентиляция</li>
+              </ul>
+              <div class="service-footer">
+                <div class="service-price">
+                  <span>от</span>
+                  <strong>150 000 ₽</strong>
+                </div>
+                <a href="#contact-form" class="btn btn-sm">Заказать</a>
+              </div>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-img">
+              <Image
+                src={serviceRepairImg}
+                alt="Ремонт бань"
+                widths={[320, 480, 640, 800]}
+                sizes="(max-width: 767px) 100vw, (max-width: 1200px) 33vw, 380px"
+                loading="lazy"
+              />
+            </div>
+            <div class="service-body">
+              <h3>Ремонт и реставрация</h3>
+              <p>Вернём вашей бане первозданный вид. Заменим всё, что износилось.</p>
+              <ul class="service-features">
+                <li>✓ Замена отделки</li>
+                <li>✓ Ремонт полов и потолков</li>
+                <li>✓ Модернизация печей</li>
+              </ul>
+              <div class="service-footer">
+                <div class="service-price">
+                  <span>от</span>
+                  <strong>80 000 ₽</strong>
+                </div>
+                <a href="#contact-form" class="btn btn-sm">Заказать</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="master" class="master">
+      <div class="container">
+        <div class="master-grid">
+          <div class="master-photo">
+            <div class="master-avatar">
+              <Image src={aboutImg} alt="Владимир Валерьевич" width={640} densities={[1, 2]} loading="lazy" />
+            </div>
+          </div>
+          <div class="master-content">
+            <span class="section-tag">О мастере</span>
+            <h2>Владимир Морозов</h2>
+            <p class="master-title">Мастер-банщик, владелец PurePar</p>
+            <blockquote>
+              «Баня — это не просто постройка, это место силы и здоровья. Я вкладываю душу в каждый проект, потому что знаю: хорошая баня служит поколениям. За 10 лет я построил более сотен бань и ни разу не получил претензии от клиентов.»
+            </blockquote>
+            <div class="master-facts">
+              <div class="fact">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Работаю лично на каждом объекте</span>
+              </div>
+              <div class="fact">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Консультирую бесплатно до и после</span>
+              </div>
+              <div class="fact">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>Даю гарантию на все виды работ</span>
+              </div>
+            </div>
+            <a href="#contact-form" class="btn btn-primary">Связаться с мастером</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Портфолио</span>
+          <h2>Наши работы</h2>
+          <p>Реальные фото с объектов наших клиентов</p>
+        </div>
+        <div class="gallery-grid" id="gallery-grid">
+          {galleryImages.slice(0, 4).map((_, i) => (
+            <div class="gallery-item" data-src={galleryFull[i].src}>
+              <img src={galleryThumbs[i].src} srcset={galleryThumbs[i].attributes.srcset} sizes={galleryThumbs[i].attributes.sizes} width={galleryThumbs[i].attributes.width} height={galleryThumbs[i].attributes.height} alt={`Проект ${i + 1}`} loading="lazy" decoding="async" />
+              <div class="gallery-overlay">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+              </div>
+            </div>
+          ))}
+          {galleryImages.slice(4).map((_, i) => (
+            <div class="gallery-item gallery-item--hidden" data-src={galleryFull[i + 4].src}>
+              <img src={galleryThumbs[i + 4].src} srcset={galleryThumbs[i + 4].attributes.srcset} sizes={galleryThumbs[i + 4].attributes.sizes} width={galleryThumbs[i + 4].attributes.width} height={galleryThumbs[i + 4].attributes.height} alt={`Проект ${i + 5}`} loading="lazy" decoding="async" />
+              <div class="gallery-overlay">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+              </div>
+            </div>
+          ))}
+          {publicGalleryImages.map((src, i) => (
+            <div class="gallery-item gallery-item--hidden" data-src={src}>
+              <img src={src} alt={`Проект ${i + 9}`} loading="lazy" decoding="async" />
+              <div class="gallery-overlay">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="gallery-actions" id="gallery-actions">
+          <button class="btn btn-outline" id="show-more-btn">
+            Смотреть ещё
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" id="lightbox-close">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <button class="lightbox-prev" id="lightbox-prev">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="lightbox-next" id="lightbox-next">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <img src="" alt="" id="lightbox-img" />
+    </div>
+
+    <section class="reviews">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Отзывы</span>
+          <h2>Что говорят клиенты</h2>
+        </div>
+        <div class="reviews-grid">
+          <article class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p>«Отличная работа! Баня получилась именно такой, как мы хотели. Ребята профессионалы своего дела. Всё чисто, аккуратно, в срок.»</p>
+            <div class="review-author">
+              <div class="review-avatar">С</div>
+              <div>
+                <strong>Сергей</strong>
+                <span>Подольск</span>
+              </div>
+            </div>
+          </article>
+          <article class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p>«Очень довольны результатом. Алексей лично контролировал все этапы. Сделали даже лучше, чем я ожидала!»</p>
+            <div class="review-author">
+              <div class="review-avatar">Н</div>
+              <div>
+                <strong>Наталья</strong>
+                <span>Одинцово</span>
+              </div>
+            </div>
+          </article>
+          <article class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p>«Профессиональный подход, качественные материалы. Баня служит уже 3 года без нареканий. Рекомендую!»</p>
+            <div class="review-author">
+              <div class="review-avatar">В</div>
+              <div>
+                <strong>Виктор</strong>
+                <span>Москва</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact-form" class="contact-section">
+      <div class="container">
+        <div class="contact-wrapper">
+          <div class="contact-info">
+            <span class="section-tag">Оставить заявку</span>
+            <h2>Получите бесплатный расчёт</h2>
+            <p>Заполните форму и мы свяжемся с вами в течение 15 минут для обсуждения вашего проекта</p>
+            <ul class="contact-benefits">
+              <li>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                <span>Бесплатная консультация</span>
+              </li>
+              <li>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                <span>Точный расчёт стоимости</span>
+              </li>
+              <li>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                <span>Персональное предложение</span>
+              </li>
+            </ul>
+          </div>
+          <div class="contact-form-card">
+            <form id="contact-lead-form">
+              <div class="input-group">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <input type="text" name="name" placeholder="Ваше имя" required />
+              </div>
+              <div class="input-group">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <input type="tel" name="phone" class="phone-input-field" placeholder="+7 (___) ___-__-__" required />
+              </div>
+              <div class="input-group textarea-group">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <textarea name="message" placeholder="Опишите ваш проект (необязательно)" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">
+                Отправить заявку
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </form>
+            <div class="form-footer">
+              <span>Или напишите напрямую:</span>
+              <div class="form-links">
+                <a href={CONTACT.whatsappUrl} target="_blank" rel="noopener">WhatsApp</a>
+                <a href={CONTACT.telegramUrl} target="_blank" rel="noopener">Telegram</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container cta-inner">
+        <div class="cta-content">
+          <h2>Готовы начать проект?</h2>
+          <p>Позвоните или напишите — обсудим вашу баню мечты</p>
+        </div>
+        <div class="cta-actions">
+          <a href={`tel:+${CONTACT.phoneRaw}`} class="btn btn-white btn-mobile-full">{CONTACT.phoneDisplay}</a>
+          <a href={CONTACT.whatsappUrl} target="_blank" rel="noopener" class="btn btn-glass-white btn-mobile-full">WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo">
+            <img src="/logo.png" alt="PurePar логотип" width="32" height="32" />
+            <span>PurePar</span>
+          </a>
+          <p>Строительство и отделка бань под ключ в Москве и Московской области</p>
+        </div>
+        <div class="footer-nav">
+          <h3>Услуги</h3>
+          <a href="/uslugi/stroitelstvo-bani">Строительство бань</a>
+          <a href="/uslugi/otdelka-bani">Отделка бань</a>
+          <a href="/uslugi/otdelka-sauny">Отделка саун</a>
+          <a href="/uslugi/remont-bani">Ремонт бань</a>
+          <a href="/uslugi/hammam">Хаммам</a>
+          <a href="/uslugi/infrakrasnaya-sauna">ИК-сауна</a>
+        </div>
+        <div class="footer-nav">
+          <h3>Материалы</h3>
+          <a href="/materialy/lipa">Липа</a>
+          <a href="/materialy/kedr">Кедр</a>
+          <a href="/materialy/olha">Ольха</a>
+          <a href="/materialy/osina">Осина</a>
+          <a href="/materialy/abash">Абаш</a>
+        </div>
+        <div class="footer-contact">
+          <h3>Контакты</h3>
+          <a href={`tel:+${CONTACT.phoneRaw}`}>{CONTACT.phoneDisplay}</a>
+          <a href={CONTACT.whatsappUrl} target="_blank" rel="noopener">WhatsApp</a>
+          <a href={CONTACT.telegramUrl} target="_blank" rel="noopener">Telegram</a>
+          <p class="footer-location">Москва и МО</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="container footer-links-inner">
+          <div class="footer-geo">
+            <a href="/moskva">Москва</a>
+            <a href="/moskovskaya-oblast">Московская область</a>
+            <a href="/ceny">Цены</a>
+          </div>
+          <div class="footer-legal">
+            <a href="/privacy">Политика конфиденциальности</a>
+            <a href="/terms">Публичная оферта</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">© {year} PurePar. Все права защищены.</div>
+      </div>
+    </footer>
+
+    <script>
+      // Header scroll effect
+      const header = document.getElementById('header');
+      const hero = document.querySelector('.hero');
+      function updateHeader() {
+        if (!header || !hero) return;
+        const heroBottom = hero.getBoundingClientRect().bottom;
+        if (heroBottom <= 80) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+      window.addEventListener('scroll', updateHeader);
+      updateHeader();
+
+      // Burger menu
+      const burger = document.getElementById('burger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      let menuOpen = false;
+      burger?.addEventListener('click', () => {
+        menuOpen = !menuOpen;
+        burger.classList.toggle('active');
+        mobileMenu?.classList.toggle('active');
+        document.body.classList.toggle('no-scroll');
+        // Keep header transparent in hero when menu is open
+        if (menuOpen && header) {
+          header.classList.add('menu-open');
+        } else if (header) {
+          header.classList.remove('menu-open');
+          updateHeader();
+        }
+      });
+      document.querySelectorAll('.mobile-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          menuOpen = false;
+          burger?.classList.remove('active');
+          mobileMenu?.classList.remove('active');
+          document.body.classList.remove('no-scroll');
+          header?.classList.remove('menu-open');
+          updateHeader();
+        });
+      });
+
+      // Smooth scroll to contact form
+      document.querySelectorAll('a[href="#contact-form"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const contactSection = document.getElementById('contact-form');
+          if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Phone mask
+      function formatPhone(digits: string): string {
+        let formatted = '+7 (';
+        if (digits.length > 0) formatted += digits.slice(0, 3);
+        if (digits.length >= 3) formatted += ') ' + digits.slice(3, 6);
+        if (digits.length >= 6) formatted += '-' + digits.slice(6, 8);
+        if (digits.length >= 8) formatted += '-' + digits.slice(8, 10);
+        return formatted;
+      }
+
+      function getDigits(val: string): string {
+        let digits = val.replace(/\D/g, '');
+        if (digits.startsWith('7')) digits = digits.slice(1);
+        if (digits.startsWith('8')) digits = digits.slice(1);
+        return digits.slice(0, 10);
+      }
+
+      function setupPhoneMask(input: HTMLInputElement) {
+        input.addEventListener('focus', () => {
+          if (!input.value) {
+            input.value = '+7 (';
+            setTimeout(() => input.setSelectionRange(4, 4), 0);
+          }
+        });
+
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace') {
+            e.preventDefault();
+            const digits = getDigits(input.value);
+            if (digits.length > 0) {
+              const newDigits = digits.slice(0, -1);
+              input.value = formatPhone(newDigits);
+              const newPos = input.value.length;
+              input.setSelectionRange(newPos, newPos);
+            } else {
+              input.value = '+7 (';
+              input.setSelectionRange(4, 4);
+            }
+            return;
+          }
+
+          if (e.key === 'Delete') {
+            e.preventDefault();
+            return;
+          }
+
+          if (e.key.length === 1 && /\d/.test(e.key)) {
+            e.preventDefault();
+            const digits = getDigits(input.value);
+            if (digits.length < 10) {
+              const newDigits = digits + e.key;
+              input.value = formatPhone(newDigits);
+              const newPos = input.value.length;
+              input.setSelectionRange(newPos, newPos);
+            }
+          }
+        });
+
+        input.addEventListener('input', () => {
+          const digits = getDigits(input.value);
+          input.value = formatPhone(digits);
+          const newPos = input.value.length;
+          input.setSelectionRange(newPos, newPos);
+        });
+
+        input.addEventListener('paste', (e) => {
+          const pastedText = e.clipboardData?.getData('text') || '';
+          const pastedDigits = pastedText.replace(/\D/g, '');
+          if (pastedDigits.length > 0) {
+            e.preventDefault();
+            let digits = pastedDigits;
+            if (digits.startsWith('7') || digits.startsWith('8')) digits = digits.slice(1);
+            const newDigits = digits.slice(0, 10);
+            input.value = formatPhone(newDigits);
+            const newPos = input.value.length;
+            setTimeout(() => input.setSelectionRange(newPos, newPos), 0);
+          }
+        });
+      }
+
+      // Apply phone mask to all phone inputs
+      const phoneInput = document.getElementById('phone-input') as HTMLInputElement;
+      if (phoneInput) {
+        setupPhoneMask(phoneInput);
+      }
+      
+      document.querySelectorAll('.phone-input-field').forEach(input => {
+        setupPhoneMask(input as HTMLInputElement);
+      });
+
+      // Toast notification system
+      function showToast(message: string, type: 'success' | 'error' = 'success') {
+        let container = document.getElementById('toast-container');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'toast-container';
+          document.body.appendChild(container);
+        }
+
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.innerHTML = `
+          <div class="toast-icon">${type === 'success' ? '✓' : '!'}</div>
+          <div class="toast-message">${message}</div>
+          <button class="toast-close" aria-label="Закрыть">×</button>
+        `;
+
+        container.appendChild(toast);
+
+        // Animate in
+        requestAnimationFrame(() => toast.classList.add('toast-visible'));
+
+        // Close button
+        toast.querySelector('.toast-close')?.addEventListener('click', () => {
+          toast.classList.remove('toast-visible');
+          setTimeout(() => toast.remove(), 300);
+        });
+      }
+
+      // Form submission handler
+      async function handleFormSubmit(formEl: HTMLFormElement, submitBtn: HTMLButtonElement | null) {
+        const fd = new FormData(formEl);
+        const name = fd.get('name')?.toString().trim() || '';
+        const phone = fd.get('phone')?.toString().trim() || '';
+        const message = fd.get('message')?.toString().trim() || '';
+        
+        if (!name || phone.length < 18) {
+          showToast('Заполните все поля корректно', 'error');
+          return;
+        }
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Отправка...';
+        }
+
+        try {
+          const response = await fetch('/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name,
+              phone,
+              message: message || null,
+              referrer: document.referrer || null,
+              landingPage: window.location.href,
+            }),
+          });
+
+          if (response.ok) {
+            formEl.reset();
+            showToast('Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+          } else {
+            showToast('Ошибка отправки. Попробуйте позже или свяжитесь напрямую.', 'error');
+          }
+        } catch (error) {
+          showToast('Ошибка сети. Попробуйте позже или свяжитесь напрямую.', 'error');
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Отправить заявку <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+          }
+        }
+      }
+
+      const form = document.getElementById('lead-form') as HTMLFormElement | null;
+      const formBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      form?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleFormSubmit(form, formBtn);
+      });
+
+      const contactForm = document.getElementById('contact-lead-form') as HTMLFormElement | null;
+      const contactFormBtn = contactForm?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      contactForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleFormSubmit(contactForm, contactFormBtn);
+      });
+
+      // Show more gallery
+      const showMoreBtn = document.getElementById('show-more-btn');
+      const galleryActions = document.getElementById('gallery-actions');
+      showMoreBtn?.addEventListener('click', () => {
+        document.querySelectorAll('.gallery-item--hidden').forEach(item => {
+          item.classList.remove('gallery-item--hidden');
+        });
+        if (galleryActions) galleryActions.style.display = 'none';
+      });
+
+      // Lightbox
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+      const lightboxClose = document.getElementById('lightbox-close');
+      const lightboxPrev = document.getElementById('lightbox-prev');
+      const lightboxNext = document.getElementById('lightbox-next');
+      let currentIndex = 0;
+      const allImages: string[] = [];
+
+      document.querySelectorAll('.gallery-item').forEach((item, i) => {
+        const src = item.getAttribute('data-src');
+        if (src) allImages.push(src);
+        item.addEventListener('click', () => {
+          currentIndex = i;
+          openLightbox(allImages[currentIndex]);
+        });
+      });
+
+      function openLightbox(src: string) {
+        if (lightbox && lightboxImg) {
+          lightboxImg.src = src;
+          lightbox.classList.add('active');
+          document.body.classList.add('no-scroll');
+        }
+      }
+
+      function closeLightbox() {
+        lightbox?.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+      }
+
+      lightboxClose?.addEventListener('click', closeLightbox);
+      lightbox?.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      lightboxPrev?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+        if (lightboxImg) lightboxImg.src = allImages[currentIndex];
+      });
+
+      lightboxNext?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentIndex = (currentIndex + 1) % allImages.length;
+        if (lightboxImg) lightboxImg.src = allImages[currentIndex];
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox?.classList.contains('active')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') lightboxPrev?.click();
+        if (e.key === 'ArrowRight') lightboxNext?.click();
+      });
+    </script>
+
+    <style is:inline>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      :root {
+        --bg: #FAFAF8;
+        --bg-warm: #F5F0E8;
+        --text: #1A1A1A;
+        --text-muted: #666;
+        --accent: #A86400;
+        --accent-dark: #7A4700;
+        --accent-light: #F7E8D0;
+        --white: #FFFFFF;
+        --border: #E5E0D8;
+        --shadow: 0 8px 30px rgba(0,0,0,0.08);
+        --shadow-lg: 0 20px 50px rgba(0,0,0,0.12);
+        --radius: 16px;
+        --radius-sm: 10px;
+      }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        font-family: 'Montserrat', 'Montserrat Fallback', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      body.no-scroll { overflow: hidden; }
+
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+      img { max-width: 100%; height: auto; display: block; }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 16px 28px;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        font-size: 15px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+              }
+
+      .btn-sm { padding: 12px 20px; font-size: 14px; }
+
+      .btn-primary { background: var(--accent); color: var(--white); }
+      .btn-primary:hover { background: var(--accent-dark); }
+
+      .btn-primary:focus-visible,
+      .btn-outline:focus-visible,
+      .btn-glass:focus-visible,
+      .btn-white:focus-visible,
+      .btn-glass-white:focus-visible {
+        outline: 3px solid rgba(26, 26, 26, 0.6);
+        outline-offset: 3px;
+      }
+
+      .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+      .btn-outline:hover { background: var(--accent); color: var(--white); }
+
+      .btn-glass { background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: var(--white); border: 1px solid rgba(255,255,255,0.3); }
+      .btn-glass:hover { background: rgba(255,255,255,0.3); }
+
+      .btn-white { background: var(--white); color: var(--accent); }
+      .btn-white:hover { box-shadow: var(--shadow); }
+
+      .btn-glass-white { background: rgba(255,255,255,0.15); color: var(--white); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); }
+      .btn-glass-white:hover { background: rgba(255,255,255,0.25); }
+
+      .btn-full { width: 100%; }
+
+      /* Header */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: transparent;
+        padding: 14px 0;
+              }
+
+      .header.scrolled:not(.menu-open) {
+        background: rgba(250,250,248,0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .header.menu-open {
+        background: rgba(250,250,248,0.98);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .header.menu-open .logo span,
+      .header.menu-open .nav a,
+      .header.menu-open .header-phone { color: var(--text); }
+
+      .header.menu-open .burger span { background: var(--text); }
+
+      .header.scrolled:not(.menu-open) .logo span,
+      .header.scrolled:not(.menu-open) .nav a,
+      .header.scrolled:not(.menu-open) .header-phone { color: var(--text); }
+
+      .header.scrolled:not(.menu-open) .burger span { background: var(--text); }
+
+      .header-inner { display: flex; align-items: center; justify-content: space-between; }
+
+      .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--white); font-weight: 700; font-size: 18px;  }
+      .logo img { width: 36px; height: 36px; }
+
+      .nav { display: none; gap: 36px; }
+      .nav a { text-decoration: none; color: rgba(255,255,255,0.9); font-weight: 500; font-size: 15px;  }
+      .nav a:hover { color: var(--accent); }
+
+      .header-phone { display: none; font-weight: 600; color: var(--white); text-decoration: none;  }
+
+      .burger { display: flex; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+      .burger span { display: block; width: 24px; height: 2px; background: var(--white);  }
+      .burger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+      .burger.active span:nth-child(2) { opacity: 0; }
+      .burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+      /* Mobile Menu */
+      .mobile-menu {
+        position: fixed;
+        top: 65px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--white);
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+              }
+
+      .mobile-menu.active { opacity: 1; visibility: visible; }
+
+      .mobile-nav { display: flex; flex-direction: column; padding: 40px 24px; }
+      .mobile-nav a { padding: 16px 0; text-decoration: none; color: var(--text); font-size: 20px; font-weight: 600; border-bottom: 1px solid var(--border); }
+      .mobile-phone { color: var(--accent) !important; border: none !important; margin-top: 20px; }
+
+      /* Hero */
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 100px 0 60px;
+        overflow: hidden;
+      }
+
+      .hero-bg { position: absolute; inset: 0; z-index: 0; }
+      .hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+      .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26,26,26,0.85) 0%, rgba(26,26,26,0.6) 50%, rgba(196,132,29,0.3) 100%); }
+
+      .hero-inner { position: relative; z-index: 1; display: grid; gap: 40px; align-items: center; }
+      .hero-content { color: var(--white); }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        padding: 10px 20px;
+        border-radius: 100px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        border: 1px solid rgba(255,255,255,0.2);
+      }
+
+      .pulse { width: 8px; height: 8px; background: #4ADE80; border-radius: 50%; animation: pulse 2s infinite; }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(1.5); }
+      }
+
+      .hero h1 { font-size: clamp(32px, 8vw, 64px); font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+      .hero h1 span { color: var(--accent); }
+
+      .hero-content > p { font-size: 17px; opacity: 0.9; margin-bottom: 32px; max-width: 480px; line-height: 1.7; }
+
+      .hero-btns { display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+
+      .hero-stats { display: flex; gap: 32px; justify-content: center; }
+      .stat { text-align: left; }
+      .stat strong { display: block; font-size: 28px; font-weight: 800; color: var(--accent); }
+      .stat span { font-size: 13px; opacity: 0.7; }
+
+      /* Form Card */
+      .form-card { background: var(--white); padding: 32px; border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+      .form-header { margin-bottom: 24px; }
+      .form-header h2 { font-size: 22px; margin-bottom: 6px; color: var(--text); }
+      .form-header p { color: var(--text-muted); font-size: 14px; }
+      .form-card form { display: flex; flex-direction: column; gap: 14px; }
+
+      .input-group { position: relative; display: flex; align-items: center; }
+      .input-group svg { position: absolute; left: 14px; color: var(--text-muted); }
+      .input-group input {
+        width: 100%;
+        padding: 16px 16px 16px 48px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-size: 15px;
+        font-family: inherit;
+        transition: all 0.2s;
+        background: var(--bg);
+      }
+      .input-group input:focus { outline: none; border-color: var(--accent); background: var(--white); }
+
+      .form-footer { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+      .form-footer span { color: var(--text-muted); font-size: 13px; }
+      .form-links { display: flex; gap: 20px; }
+      .form-links a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 14px; }
+
+      /* Section Styles */
+      .section-header { text-align: center; margin-bottom: 48px; }
+      .section-tag { display: inline-block; background: var(--accent-light); color: #6B4400; padding: 8px 20px; border-radius: 100px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+      .section-header h2 { font-size: clamp(26px, 5vw, 40px); font-weight: 800; margin-bottom: 12px; }
+      .section-header p { color: var(--text-muted); font-size: 16px; }
+
+      .section-tag { border: 1px solid rgba(122, 71, 0, 0.25); }
+
+      /* Services */
+      .services { padding: 80px 0; background: var(--white); }
+      .services-grid { display: grid; gap: 24px; }
+
+      .service-card { background: var(--bg); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border);  }
+      .service-card:hover { box-shadow: var(--shadow-lg); }
+
+      .service-img { position: relative; height: 200px; overflow: hidden; }
+      .service-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+      
+      .service-badge { position: absolute; top: 16px; left: 16px; background: var(--accent); color: var(--white); padding: 6px 14px; border-radius: 100px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+
+      .service-body { padding: 24px; }
+      .service-body h3 { font-size: 20px; margin-bottom: 12px; }
+      .service-body > p { color: var(--text-muted); font-size: 14px; margin-bottom: 16px; line-height: 1.6; }
+
+      .service-features { list-style: none; margin-bottom: 20px; }
+      .service-features li { font-size: 13px; padding: 6px 0; color: var(--text); }
+
+      .service-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--border); }
+      .service-price span { font-size: 12px; color: var(--text-muted); }
+      .service-price strong { font-size: 20px; color: var(--accent); font-weight: 800; }
+
+      /* Master */
+      .master { padding: 80px 0; background: var(--bg-warm); }
+      .master-grid { display: grid; gap: 48px; align-items: center; }
+
+      .master-photo { position: relative; text-align: center; }
+      .master-avatar { width: 280px; height: 280px; margin: 0 auto; border-radius: 50%; overflow: hidden; border: 6px solid var(--white); box-shadow: var(--shadow-lg); }
+      .master-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+      .master-exp { position: absolute; bottom: 0; right: 50%; transform: translateX(120px); background: var(--accent); color: var(--white); padding: 16px 24px; border-radius: var(--radius-sm); text-align: center; box-shadow: var(--shadow); }
+      .master-exp strong { display: block; font-size: 28px; font-weight: 800; }
+      .master-exp span { font-size: 12px; opacity: 0.9; }
+
+      .master-content h2 { font-size: clamp(28px, 5vw, 42px); margin-bottom: 8px; }
+      .master-title { color: #6B4400; font-weight: 600; font-size: 16px; margin-bottom: 24px; }
+
+      .master-content blockquote { font-size: 17px; line-height: 1.8; font-style: italic; color: var(--text-muted); margin-bottom: 28px; padding-left: 20px; border-left: 3px solid var(--accent); }
+
+      .master-facts { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+      .fact { display: flex; align-items: center; gap: 12px; font-weight: 500; font-size: 15px; }
+      .fact svg { color: var(--accent); flex-shrink: 0; }
+
+      /* Gallery */
+      .gallery { padding: 80px 0; background: var(--white); }
+      .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+      .gallery-item { position: relative; border-radius: var(--radius-sm); overflow: hidden; aspect-ratio: 4/3; cursor: pointer; }
+      .gallery-item--hidden { display: none; }
+      .gallery-item img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; }
+      
+      .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; opacity: 0;  color: var(--white); }
+      .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+      .gallery-actions { text-align: center; margin-top: 32px; }
+
+      /* Lightbox */
+      .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden;  }
+      .lightbox.active { opacity: 1; visibility: visible; }
+      .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: var(--radius-sm); }
+
+      .lightbox-close, .lightbox-prev, .lightbox-next { position: absolute; background: rgba(255,255,255,0.1); border: none; color: var(--white); cursor: pointer; padding: 12px; border-radius: 50%;  }
+      .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,0.2); }
+      .lightbox-close { top: 20px; right: 20px; }
+      .lightbox-prev { left: 20px; top: 50%; transform: translateY(-50%); }
+      .lightbox-next { right: 20px; top: 50%; transform: translateY(-50%); }
+
+      /* Reviews */
+      .reviews { padding: 80px 0; background: var(--bg); }
+      .reviews-grid { display: grid; gap: 24px; }
+
+      /* Contact Section */
+      .contact-section { padding: 80px 0; background: var(--bg-warm); }
+      .contact-wrapper { display: grid; gap: 48px; align-items: center; }
+      .contact-info h2 { font-size: clamp(28px, 5vw, 40px); font-weight: 800; margin-bottom: 16px; }
+      .contact-info > p { color: var(--text-muted); font-size: 16px; line-height: 1.6; margin-bottom: 28px; }
+      .contact-benefits { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+      .contact-benefits li { display: flex; align-items: center; gap: 14px; font-size: 15px; font-weight: 500; }
+      .contact-benefits svg { color: var(--accent); flex-shrink: 0; }
+      .contact-form-card { background: var(--white); padding: 32px; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); }
+      .contact-form-card .input-group { margin-bottom: 16px; }
+      .contact-form-card .textarea-group { align-items: flex-start; }
+      .contact-form-card .textarea-group svg { margin-top: 14px; }
+      .contact-form-card textarea { width: 100%; padding: 14px 14px 14px 48px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 15px; font-family: inherit; background: var(--bg); resize: vertical; min-height: 80px; transition: all 0.2s; }
+      .contact-form-card textarea:focus { outline: none; border-color: var(--accent); background: var(--white); }
+
+      @media (min-width: 768px) {
+        .contact-wrapper { grid-template-columns: 1fr 1fr; }
+      }
+
+      .review-card { background: var(--white); padding: 28px; border-radius: var(--radius); border: 1px solid var(--border); }
+      .review-stars { color: var(--accent); font-size: 18px; margin-bottom: 14px; letter-spacing: 2px; }
+      .review-card p { font-size: 15px; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+
+      .review-author { display: flex; align-items: center; gap: 12px; }
+      .review-avatar { width: 44px; height: 44px; background: var(--accent-light); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; }
+      .review-author strong { display: block; font-size: 15px; }
+      .review-author span { color: var(--text-muted); font-size: 13px; }
+
+      /* CTA */
+      .cta { padding: 60px 0; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%); color: var(--white); }
+      .cta-inner { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px; }
+      .cta-content h2 { font-size: clamp(22px, 5vw, 32px); margin-bottom: 8px; }
+      .cta-content p { opacity: 0.9; font-size: 15px; }
+      .cta-actions { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 400px; }
+      .cta-actions .btn { min-width: 200px; }
+
+      /* Footer */
+      .footer { background: var(--text); color: var(--white); padding: 60px 0 0; }
+      .footer-grid { display: grid; grid-template-columns: 1fr; gap: 32px; padding-bottom: 48px; }
+      .footer-brand .logo span { color: var(--white); }
+      .footer-brand p { margin-top: 12px; color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.5; }
+
+      .footer-nav h3, .footer-contact h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; color: rgba(255,255,255,0.7); }
+      .footer-nav a, .footer-contact a { display: block; color: rgba(255,255,255,0.85); text-decoration: none; padding: 6px 0; font-size: 14px;  }
+      .footer-nav a:hover, .footer-contact a:hover { color: var(--accent-light); }
+      .footer-location { color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 12px; }
+
+      .footer-links { border-top: 1px solid rgba(255,255,255,0.1); padding: 20px 0; }
+      .footer-links-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+      .footer-geo, .footer-legal { display: flex; gap: 24px; flex-wrap: wrap; }
+      .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px;  }
+      .footer-links a:hover { color: var(--accent-light); }
+      .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 20px 0; text-align: center; font-size: 13px; color: rgba(255,255,255,0.65); }
+
+      /* Mobile */
+      @media (max-width: 767px) {
+        .btn-mobile-full { width: 100%; justify-content: center; }
+        .hero-btns { flex-direction: column; }
+        .cta-actions { flex-direction: column; }
+      }
+
+      @media (min-width: 640px) {
+        .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+
+      @media (min-width: 768px) {
+        .nav { display: flex; }
+        .header-phone { display: block; }
+        .burger { display: none; }
+        .hero-inner { grid-template-columns: 1fr 380px; gap: 48px; }
+        .hero-btns { flex-direction: row; }
+        .btn-mobile-full { width: auto; }
+        .services-grid { grid-template-columns: repeat(3, 1fr); }
+        .master-grid { grid-template-columns: 1fr 1.2fr; }
+        .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+        .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; }
+        .cta-inner { flex-direction: row; text-align: left; }
+        .cta-actions { flex-direction: row; width: auto; }
+        .cta-actions .btn { min-width: 180px; }
+        .hero-stats { justify-content: flex-start; }
+      }
+
+      @media (min-width: 1024px) {
+        .reviews-grid { grid-template-columns: repeat(3, 1fr); }
+        .master-avatar { width: 320px; height: 320px; }
+      }
+
+      /* Toast notifications */
+      #toast-container {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 400px;
+      }
+
+      .toast {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px 20px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateX(100%);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .toast-visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .toast-success {
+        border-left: 4px solid #22c55e;
+      }
+
+      .toast-error {
+        border-left: 4px solid #ef4444;
+      }
+
+      .toast-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .toast-success .toast-icon {
+        background: #dcfce7;
+        color: #22c55e;
+      }
+
+      .toast-error .toast-icon {
+        background: #fee2e2;
+        color: #ef4444;
+      }
+
+      .toast-message {
+        flex: 1;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #1a1a1a;
+      }
+
+      .toast-close {
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: #999;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+
+      .toast-close:hover {
+        color: #333;
+      }
+
+      @media (max-width: 480px) {
+        #toast-container {
+          left: 16px;
+          right: 16px;
+          bottom: 16px;
+          max-width: none;
+        }
+      }
+    </style>
+    <Analytics />
+  </body>
 </html>

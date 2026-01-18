@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Страница не найдена — PurePar"
+  description="Запрашиваемая страница не найдена. Вернитесь на главную или выберите нужный раздел."
+>
+  <section class="error-page">
+    <div class="container">
+      <div class="error-content">
+        <span class="error-code">404</span>
+        <h1>Страница не найдена</h1>
+        <p>К сожалению, запрашиваемая страница не существует или была перемещена. Возможно, вы ввели неправильный адрес.</p>
+        <div class="error-actions">
+          <a href="/" class="btn btn-primary">На главную</a>
+          <a href="/uslugi" class="btn btn-secondary">Услуги</a>
+        </div>
+        <div class="error-links">
+          <p>Популярные разделы:</p>
+          <nav>
+            <a href="/uslugi/otdelka-bani">Отделка бань</a>
+            <a href="/uslugi/stroitelstvo-bani">Строительство</a>
+            <a href="/materialy">Материалы</a>
+            <a href="/ceny">Цены</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:inline>
+  .error-page { 
+    padding: 80px 0; 
+    min-height: calc(100vh - 300px);
+    display: flex;
+    align-items: center;
+  }
+  .error-content { 
+    text-align: center; 
+    max-width: 500px; 
+    margin: 0 auto; 
+  }
+  .error-code { 
+    font-size: clamp(100px, 20vw, 180px); 
+    font-weight: 900; 
+    color: var(--accent-light); 
+    line-height: 1;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .error-page h1 { 
+    font-size: clamp(28px, 5vw, 40px); 
+    font-weight: 800; 
+    margin: 0 0 16px; 
+  }
+  .error-page p { 
+    color: var(--text-muted); 
+    font-size: 16px; 
+    line-height: 1.6;
+    margin: 0 0 32px; 
+  }
+  .error-actions { 
+    display: flex; 
+    gap: 16px; 
+    justify-content: center; 
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .btn-secondary {
+    background: var(--white);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .error-links { 
+    padding-top: 32px; 
+    border-top: 1px solid var(--border); 
+  }
+  .error-links p { 
+    font-size: 13px; 
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .error-links nav { 
+    display: flex; 
+    gap: 24px; 
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .error-links a { 
+    color: var(--accent); 
+    text-decoration: none; 
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .error-links a:hover { 
+    color: var(--accent-dark); 
+  }
+</style>

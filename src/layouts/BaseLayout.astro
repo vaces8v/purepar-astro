@@ -1,0 +1,375 @@
+---
+import { Image } from 'astro:assets';
+import heroImg from '../assets/images/IMG-20250814-WA0004.jpg';
+import Analytics from '../components/Analytics.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
+  heroTag?: string;
+}
+
+const { title, description, canonical, heroTitle, heroSubtitle, heroTag } = Astro.props;
+const siteName = 'PurePar';
+
+const CONTACT = {
+  phoneRaw: '79165835566',
+  phoneDisplay: '+7 (916) 583-55-66',
+  telegramUrl: 'https://t.me/79165835566',
+  whatsappUrl: 'https://wa.me/79165835566',
+} as const;
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={siteName} />
+    <style is:global>
+      :root {
+        --text: #1A1A1A;
+        --text-muted: #666;
+        --bg: #FAFAFA;
+        --bg-warm: #F5F0EB;
+        --white: #FFFFFF;
+        --accent: #B8860B;
+        --accent-dark: #8B6914;
+        --accent-light: #F7E8D0;
+        --border: #E5E0D8;
+        --shadow: 0 8px 30px rgba(0,0,0,0.08);
+        --radius: 16px;
+        --radius-sm: 10px;
+      }
+      html { scroll-behavior: smooth; }
+      *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        margin: 0;
+      }
+      a { text-decoration: none; color: inherit; }
+      ul, ol { list-style: none; }
+      h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+      img { max-width: 100%; height: auto; display: block; }
+      main { padding-top: 80px; }
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
+        padding: 16px 0;
+      }
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 700;
+        font-size: 20px;
+      }
+      .nav { display: flex; gap: 28px; }
+      .nav a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 500;
+        font-size: 14px;
+              }
+      .nav a:hover { color: var(--accent); }
+      .header-phone {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 600;
+        font-size: 15px;
+      }
+      @media (max-width: 600px) {
+        .nav { display: none; }
+        .header-phone { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-inner">
+        <a href="/" class="logo">
+          <img src="/logo.png" alt="PurePar" width="36" height="36" />
+          <span>PurePar</span>
+        </a>
+        <nav class="nav">
+          <a href="/uslugi">Услуги</a>
+          <a href="/materialy">Материалы</a>
+          <a href="/#gallery">Работы</a>
+          <a href="/#master">О мастере</a>
+        </nav>
+        <a href={`tel:+${CONTACT.phoneRaw}`} class="header-phone">{CONTACT.phoneDisplay}</a>
+      </div>
+    </header>
+
+    <main>
+      {heroTitle && (
+        <section class="page-hero">
+          <div class="page-hero-bg">
+            <Image
+              src={heroImg}
+              alt="Фон"
+              class="page-hero-bg-img"
+              widths={[768, 1024, 1280, 1600]}
+              sizes="100vw"
+            />
+            <div class="page-hero-overlay"></div>
+          </div>
+          <div class="container page-hero-content">
+            {heroTag && <span class="section-tag">{heroTag}</span>}
+            <h1>{heroTitle}</h1>
+            {heroSubtitle && <p>{heroSubtitle}</p>}
+          </div>
+        </section>
+      )}
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo">
+            <img src="/logo.png" alt="PurePar" width="36" height="36" />
+            <span>PurePar</span>
+          </a>
+          <p>Строительство и отделка бань под ключ в Москве и Московской области</p>
+        </div>
+        <div class="footer-nav">
+          <h3>Услуги</h3>
+          <ul>
+            <li><a href="/uslugi/stroitelstvo-bani">Строительство бань</a></li>
+            <li><a href="/uslugi/otdelka-bani">Отделка бань</a></li>
+            <li><a href="/uslugi/otdelka-sauny">Отделка саун</a></li>
+            <li><a href="/uslugi/remont-bani">Ремонт бань</a></li>
+            <li><a href="/uslugi/hammam">Хаммам</a></li>
+            <li><a href="/uslugi/infrakrasnaya-sauna">ИК-сауна</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav">
+          <h3>Материалы</h3>
+          <ul>
+            <li><a href="/materialy/lipa">Липа</a></li>
+            <li><a href="/materialy/kedr">Кедр</a></li>
+            <li><a href="/materialy/olha">Ольха</a></li>
+            <li><a href="/materialy/osina">Осина</a></li>
+            <li><a href="/materialy/abash">Абаш</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h3>Контакты</h3>
+          <ul>
+            <li><a href={`tel:+${CONTACT.phoneRaw}`}>{CONTACT.phoneDisplay}</a></li>
+            <li><a href={CONTACT.whatsappUrl} target="_blank">WhatsApp</a></li>
+            <li><a href={CONTACT.telegramUrl} target="_blank">Telegram</a></li>
+          </ul>
+          <p>Москва и МО</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="container footer-links-inner">
+          <div class="footer-geo">
+            <a href="/moskva">Москва</a>
+            <a href="/moskovskaya-oblast">Московская область</a>
+            <a href="/ceny">Цены</a>
+          </div>
+          <div class="footer-legal">
+            <a href="/privacy">Политика конфиденциальности</a>
+            <a href="/terms">Публичная оферта</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          © {new Date().getFullYear()} PurePar. Все права защищены.
+        </div>
+      </div>
+    </footer>
+
+<style is:global>
+  .page-hero {
+    position: relative;
+    min-height: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    margin-top: -80px;
+    padding-top: 80px;
+  }
+  .page-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .page-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+  }
+  .page-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(26,26,26,0.88) 0%, rgba(26,26,26,0.7) 50%, rgba(184,134,11,0.25) 100%);
+  }
+  .page-hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 60px 20px;
+  }
+  .page-hero-content h1 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 800;
+    color: #fff;
+    margin: 16px 0;
+    line-height: 1.2;
+  }
+  .page-hero-content p {
+    color: rgba(255,255,255,0.8);
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  .page-hero .section-tag {
+    display: inline-block;
+    background: rgba(184,134,11,0.2);
+    border: 1px solid rgba(184,134,11,0.4);
+    color: var(--accent-light);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 28px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+        border: none;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--white);
+  }
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+  }
+
+  .footer {
+    background: var(--text);
+    color: var(--white);
+    padding: 60px 0 0;
+    margin-top: 80px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 48px;
+  }
+  .footer-brand p {
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    margin-top: 16px;
+  }
+  .footer-brand .logo { color: var(--white); }
+  .footer-nav h3, .footer-contact h3 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    color: rgba(255,255,255,0.7);
+  }
+  .footer-nav ul, .footer-contact ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .footer-nav li, .footer-contact li { margin-bottom: 10px; }
+  .footer-nav a, .footer-contact a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 14px;
+      }
+  .footer-nav a:hover, .footer-contact a:hover { color: var(--accent-light); }
+  .footer-contact p {
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    margin-top: 16px;
+  }
+  .footer-links {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 20px 0;
+  }
+  .footer-links-inner {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-geo, .footer-legal {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .footer-links a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 13px;
+      }
+  .footer-links a:hover { color: var(--accent-light); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 20px 0;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+  }
+
+  @media (max-width: 900px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+<Analytics />
+  </body>
+</html>

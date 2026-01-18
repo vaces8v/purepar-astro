@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const materials = [
+  { slug: 'lipa', name: 'Липа', price: 'от 480 000 ₽', desc: 'Классика для русской бани. Приятный медовый аромат, низкая теплопроводность.' },
+  { slug: 'kedr', name: 'Кедр', price: 'от 720 000 ₽', desc: 'Премиум-класс. Антисептические свойства, уникальный хвойный аромат.' },
+  { slug: 'olha', name: 'Ольха', price: 'от 560 000 ₽', desc: 'Благородный красноватый оттенок. Устойчива к влаге и перепадам температур.' },
+  { slug: 'osina', name: 'Осина', price: 'от 400 000 ₽', desc: 'Экономичный вариант. Традиционный материал для русских бань.' },
+  { slug: 'abash', name: 'Абаш', price: 'от 880 000 ₽', desc: 'Элитный африканский материал. Не нагревается, идеален для полков.' },
+];
+---
+
+<BaseLayout
+  title="Материалы для отделки бани — Липа, Кедр, Ольха | PurePar"
+  description="Выбор материала для отделки бани: липа, кедр, ольха, осина, абаш. Сравнение характеристик и цен. Только камерная сушка."
+  heroTag="Материалы"
+  heroTitle="Материалы для отделки бани"
+  heroSubtitle="Выбирайте древесину под ваши предпочтения и бюджет. Все материалы — камерной сушки с влажностью 8-12%."
+>
+
+  <section class="materials-grid-section">
+    <div class="container">
+      <div class="materials-grid">
+        {materials.map(material => (
+          <a href={`/materialy/${material.slug}`} class="material-card-link">
+            <article class="material-card">
+              <h2>{material.name}</h2>
+              <p>{material.desc}</p>
+              <div class="material-price">{material.price}</div>
+              <span class="material-more">Подробнее →</span>
+            </article>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="comparison-section">
+    <div class="container">
+      <h2>Сравнение материалов</h2>
+      <div class="table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Материал</th>
+              <th>Теплопроводность</th>
+              <th>Влагостойкость</th>
+              <th>Аромат</th>
+              <th>Цена</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Липа</strong></td>
+              <td>Низкая ★★★★★</td>
+              <td>Средняя ★★★☆☆</td>
+              <td>Медовый</td>
+              <td>$$</td>
+            </tr>
+            <tr>
+              <td><strong>Кедр</strong></td>
+              <td>Низкая ★★★★☆</td>
+              <td>Высокая ★★★★★</td>
+              <td>Хвойный</td>
+              <td>$$$</td>
+            </tr>
+            <tr>
+              <td><strong>Ольха</strong></td>
+              <td>Низкая ★★★★☆</td>
+              <td>Высокая ★★★★☆</td>
+              <td>Нейтральный</td>
+              <td>$$</td>
+            </tr>
+            <tr>
+              <td><strong>Осина</strong></td>
+              <td>Средняя ★★★☆☆</td>
+              <td>Высокая ★★★★☆</td>
+              <td>Лёгкий</td>
+              <td>$</td>
+            </tr>
+            <tr>
+              <td><strong>Абаш</strong></td>
+              <td>Очень низкая ★★★★★</td>
+              <td>Средняя ★★★☆☆</td>
+              <td>Нет</td>
+              <td>$$$$</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Не можете выбрать?</h2>
+        <p>Позвоните — поможем подобрать оптимальный материал под ваш бюджет</p>
+        <a href="/#contact-form" class="btn btn-primary">Получить консультацию</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:inline>
+  .page-hero { padding: 60px 0 40px; text-align: center; }
+  .section-tag { display: inline-block; background: var(--accent-light); color: #6B4400; padding: 8px 20px; border-radius: 100px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .page-hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin: 0 0 16px; }
+  .page-hero p { color: var(--text-muted); font-size: 18px; max-width: 600px; margin: 0 auto; }
+
+  .materials-grid-section { padding: 40px 0 80px; }
+  .materials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .material-card-link { text-decoration: none; color: inherit; }
+  .material-card { background: var(--white); padding: 32px; border-radius: var(--radius); border: 1px solid var(--border); transition: all 0.3s; height: 100%; }
+  .material-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); border-color: var(--accent); }
+  .material-card h2 { font-size: 24px; font-weight: 700; margin: 0 0 12px; }
+  .material-card p { color: var(--text-muted); font-size: 15px; margin: 0 0 20px; line-height: 1.5; }
+  .material-price { font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 16px; }
+  .material-more { color: var(--accent); font-weight: 600; font-size: 14px; }
+
+  .comparison-section { padding: 80px 0; background: var(--bg-warm); }
+  .comparison-section h2 { font-size: 28px; font-weight: 700; text-align: center; margin: 0 0 40px; }
+  .table-wrap { overflow-x: auto; }
+  .comparison-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; }
+  .comparison-table th, .comparison-table td { padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--border); }
+  .comparison-table th { background: var(--text); color: var(--white); font-weight: 600; font-size: 14px; }
+  .comparison-table td { font-size: 14px; }
+  .comparison-table tr:last-child td { border-bottom: none; }
+
+  .cta-section { padding: 80px 0; }
+  .cta-box { background: var(--bg-warm); padding: 48px; border-radius: var(--radius); text-align: center; }
+  .cta-box h2 { font-size: 28px; font-weight: 700; margin: 0 0 12px; }
+  .cta-box p { color: var(--text-muted); margin: 0 0 24px; }
+
+  @media (max-width: 900px) { .materials-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .materials-grid { grid-template-columns: 1fr; } .cta-box { padding: 32px 24px; } }
+</style>

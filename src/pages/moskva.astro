@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const services = [
+  { name: 'Строительство бань', price: 'от 500 000 ₽', link: '/uslugi/stroitelstvo-bani' },
+  { name: 'Отделка бань', price: 'от 400 000 ₽', link: '/uslugi/otdelka-bani' },
+  { name: 'Отделка саун', price: 'от 336 000 ₽', link: '/uslugi/otdelka-sauny' },
+  { name: 'Ремонт бань', price: 'от 300 000 ₽', link: '/uslugi/remont-bani' },
+];
+
+const districts = ['ЦАО', 'САО', 'СВАО', 'ВАО', 'ЮВАО', 'ЮАО', 'ЮЗАО', 'ЗАО', 'СЗАО', 'ЗелАО', 'ТиНАО'];
+
+const faq = [
+  { q: 'В каких районах Москвы вы работаете?', a: 'Работаем во всех районах без исключения: ЦАО, САО, СВАО, ВАО, ЮВАО, ЮАО, ЮЗАО, ЗАО, СЗАО, ЗелАО, ТиНАО. Выезд бесплатный.' },
+  { q: 'Сколько стоит отделка бани в Москве?', a: 'Отделка парной от 400 000 ₽, строительство под ключ от 500 000 ₽. Точную смету составим после бесплатного замера.' },
+  { q: 'Какие сроки выполнения?', a: 'Отделка парной 6-10 м² занимает 7-14 дней. Строительство под ключ — от 4 недель.' },
+  { q: 'Работаете в новостройках?', a: 'Да, делаем бани и сауны в новостройках, таунхаусах и загородных домах. Поможем с проектированием.' },
+];
+---
+
+<BaseLayout 
+  title="Строительство и отделка бань в Москве под ключ — PurePar"
+  description="Строительство и отделка бань и саун под ключ в Москве. Работаем во всех районах. Выезд бесплатно. Гарантия 1 год."
+  heroTag="Москва"
+  heroTitle="Строительство и отделка бань в Москве"
+  heroSubtitle="Профессиональное строительство и отделка бань в столице. Работаем во всех районах Москвы."
+>
+
+  <section class="geo-services">
+    <div class="container">
+      <h2>Наши услуги в Москве</h2>
+      <div class="services-grid">
+        {services.map(s => (
+          <a href={s.link} class="service-card">
+            <h3>{s.name}</h3>
+            <div class="price">{s.price}</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="geo-districts">
+    <div class="container">
+      <h2>Работаем во всех районах</h2>
+      <div class="districts-list">
+        {districts.map(d => <span class="district">{d}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="geo-advantages">
+    <div class="container">
+      <h2>Почему выбирают нас в Москве</h2>
+      <div class="advantages-grid">
+        <div class="advantage"><strong>Бесплатный выезд</strong><span>Замер и консультация без предоплаты</span></div>
+        <div class="advantage"><strong>Быстрые сроки</strong><span>Отделка парной за 7-14 дней</span></div>
+        <div class="advantage"><strong>Гарантия 1 год</strong><span>На все выполненные работы</span></div>
+        <div class="advantage"><strong>Фиксированная цена</strong><span>Без скрытых платежей</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container">
+      <h2>Частые вопросы</h2>
+      <div class="faq-list">
+        {faq.map(f => (
+          <details class="faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Нужна баня в Москве?</h2>
+        <p>Оставьте заявку — приедем, замерим и предложим лучшее решение</p>
+        <a href="/#contact-form" class="btn btn-primary">Заказать расчёт</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:inline>
+  .geo-hero { padding: 60px 0 50px; text-align: center; background: var(--bg-warm); }
+  .section-tag { display: inline-block; background: var(--accent-light); color: #6B4400; padding: 8px 20px; border-radius: 100px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .geo-hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin: 0 0 16px; }
+  .geo-hero p { color: var(--text-muted); font-size: 18px; max-width: 600px; margin: 0 auto 32px; }
+
+  .geo-services { padding: 60px 0; }
+  .geo-services h2, .geo-districts h2, .geo-advantages h2, .faq-section h2 { font-size: 28px; font-weight: 700; margin: 0 0 32px; text-align: center; }
+  .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .service-card { background: var(--white); padding: 24px; border-radius: var(--radius); border: 1px solid var(--border); text-decoration: none; color: inherit; text-align: center; transition: all 0.3s; }
+  .service-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); border-color: var(--accent); }
+  .service-card h3 { font-size: 16px; margin: 0 0 8px; }
+  .service-card .price { font-size: 18px; font-weight: 700; color: var(--accent); }
+
+  .geo-districts { padding: 60px 0; background: var(--bg-warm); }
+  .districts-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+  .district { background: var(--white); padding: 10px 20px; border-radius: 100px; font-size: 14px; font-weight: 600; border: 1px solid var(--border); }
+
+  .geo-advantages { padding: 60px 0; }
+  .advantages-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .advantage { text-align: center; padding: 24px; background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); }
+  .advantage strong { display: block; font-size: 16px; margin-bottom: 8px; }
+  .advantage span { font-size: 14px; color: var(--text-muted); }
+
+  .faq-section { padding: 60px 0; background: var(--bg-warm); }
+  .faq-list { max-width: 700px; margin: 0 auto; }
+  .faq-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 12px; }
+  .faq-item summary { padding: 20px 24px; font-weight: 600; cursor: pointer; list-style: none; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item p { padding: 0 24px 20px; color: var(--text-muted); margin: 0; }
+
+  .cta-section { padding: 60px 0; }
+  .cta-box { background: var(--text); color: var(--white); padding: 48px; border-radius: var(--radius); text-align: center; }
+  .cta-box h2 { font-size: 28px; margin: 0 0 12px; }
+  .cta-box p { color: rgba(255,255,255,0.8); margin: 0 0 24px; }
+
+  @media (max-width: 900px) { .services-grid, .advantages-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .services-grid, .advantages-grid { grid-template-columns: 1fr; } .cta-box { padding: 32px 24px; } }
+</style>

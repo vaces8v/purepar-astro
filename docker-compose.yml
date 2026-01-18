@@ -1,0 +1,50 @@
+services:
+  web:
+    image: ${IMAGE:-ghcr.io/vaces8v/purepar:latest}
+    ports:
+      - "3000:3000"
+    environment:
+      # Database
+      DATABASE_URL: ${DATABASE_URL:-file:/data/db.sqlite}
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+      # Admin credentials
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@purepar.ru}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH:-}
+      # Auth secret
+      AUTH_SECRET: ${AUTH_SECRET:-}
+      # Telegram Bot
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_BOT_USERNAME: ${TELEGRAM_BOT_USERNAME:-}
+      TELEGRAM_WEBHOOK_SECRET: ${TELEGRAM_WEBHOOK_SECRET:-}
+      # Analytics
+      PUBLIC_GA_ID: ${PUBLIC_GA_ID:-}
+      PUBLIC_YANDEX_METRICA_ID: ${PUBLIC_YANDEX_METRICA_ID:-}
+    volumes:
+      - sqlite_data:/data
+    restart: unless-stopped
+    networks:
+      - proxy
+
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+    volumes:
+      - npm_data:/data
+      - npm_letsencrypt:/etc/letsencrypt
+    restart: unless-stopped
+    networks:
+      - proxy
+
+volumes:
+  sqlite_data:
+  npm_data:
+  npm_letsencrypt:
+
+networks:
+  proxy:

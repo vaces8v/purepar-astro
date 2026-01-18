@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const service = {
+  title: 'Отделка сауны под ключ',
+  metaTitle: 'Отделка сауны под ключ в Москве — от 336 000 ₽ | PurePar',
+  metaDescription: 'Отделка финской сауны: кедр, абаш — идеальны для сухого жара. Установка печей Harvia, Sawo. Современный дизайн. Гарантия 1 год.',
+  price: 'от 336 000 ₽',
+  heroText: 'Финские сауны с сухим жаром и эстетикой минимализма в Москве и МО. Работаем с кедром, абашем и другими премиальными материалами.',
+  features: [
+    'Оптимальный микроклимат для сухого жара',
+    'Премиальные материалы: кедр, абаш',
+    'Эргономичные двухуровневые полки',
+    'Дизайнерское LED-освещение',
+    'Качественная приточно-вытяжная вентиляция',
+    'Термостойкое стекло для дверей',
+  ],
+  includes: [
+    'Проектирование планировки',
+    'Каркас и теплоизоляция',
+    'Фольгированная пароизоляция',
+    'Вагонка камерной сушки',
+    'Полки из абаша или кедра',
+    'LED-подсветка',
+    'Вентиляция',
+    'Установка печи',
+  ],
+};
+---
+
+<BaseLayout 
+  title={service.metaTitle} 
+  description={service.metaDescription}
+  heroTag="Услуги"
+  heroTitle={service.title}
+  heroSubtitle={service.heroText}
+>
+  <section class="service-content">
+    <div class="container">
+      <div class="content-grid">
+        <div class="features-block">
+          <h2>Особенности финской сауны</h2>
+          <ul class="features-list">
+            {service.features.map(f => <li><span class="check">✓</span> {f}</li>)}
+          </ul>
+        </div>
+        <div class="includes-block">
+          <h2>Что входит в стоимость</h2>
+          <ul class="includes-list">
+            {service.includes.map((item, i) => <li><span class="num">{i + 1}</span> {item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="diff-section">
+    <div class="container">
+      <h2>Сауна vs Баня: в чём разница?</h2>
+      <div class="diff-grid">
+        <div class="diff-card">
+          <h3>Финская сауна</h3>
+          <ul>
+            <li>Температура: 80-110°C</li>
+            <li>Влажность: 10-25%</li>
+            <li>Сухой жар</li>
+            <li>Минималистичный дизайн</li>
+          </ul>
+        </div>
+        <div class="diff-card">
+          <h3>Русская баня</h3>
+          <ul>
+            <li>Температура: 60-80°C</li>
+            <li>Влажность: 50-70%</li>
+            <li>Влажный пар</li>
+            <li>Традиционный интерьер</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Хотите современную сауну?</h2>
+        <p>Оставьте заявку — спроектируем и построим сауну вашей мечты</p>
+        <a href="/#contact-form" class="btn btn-primary">Получить расчёт</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:inline>
+  .service-hero { padding: 40px 0 60px; background: var(--bg-warm); }
+  .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .service-hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin: 0 0 16px; }
+  .hero-text { font-size: 18px; color: var(--text-muted); max-width: 700px; margin: 0 0 32px; line-height: 1.6; }
+  .hero-price { display: flex; align-items: baseline; gap: 12px; margin-bottom: 32px; }
+  .price-label { font-size: 14px; color: var(--text-muted); }
+  .price-value { font-size: 32px; font-weight: 800; color: var(--accent); }
+
+  .service-content { padding: 80px 0; }
+  .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .features-block h2, .includes-block h2 { font-size: 24px; font-weight: 700; margin: 0 0 24px; }
+  .features-list, .includes-list { list-style: none; padding: 0; margin: 0; }
+  .features-list li, .includes-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+  .check { color: var(--accent); font-weight: 700; }
+  .num { width: 28px; height: 28px; background: var(--accent-light); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+
+  .diff-section { padding: 80px 0; background: var(--bg-warm); }
+  .diff-section h2 { font-size: 28px; font-weight: 700; text-align: center; margin: 0 0 40px; }
+  .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 800px; margin: 0 auto; }
+  .diff-card { background: var(--white); padding: 32px; border-radius: var(--radius); border: 1px solid var(--border); }
+  .diff-card h3 { font-size: 20px; font-weight: 700; margin: 0 0 20px; }
+  .diff-card ul { list-style: none; padding: 0; margin: 0; }
+  .diff-card li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+  .diff-card li:last-child { border-bottom: none; }
+
+  .cta-section { padding: 80px 0; }
+  .cta-box { background: var(--text); color: var(--white); padding: 48px; border-radius: var(--radius); text-align: center; }
+  .cta-box h2 { font-size: 28px; font-weight: 700; margin: 0 0 12px; }
+  .cta-box p { color: rgba(255,255,255,0.8); margin: 0 0 24px; }
+
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .diff-grid { grid-template-columns: 1fr; }
+    .cta-box { padding: 32px 24px; }
+  }
+</style>

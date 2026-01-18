@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const service = {
+  title: 'Строительство бани под ключ',
+  metaTitle: 'Строительство бани под ключ в Москве — от 500 000 ₽ | PurePar',
+  metaDescription: 'Возводим бани с нуля: фундамент, сруб, кровля, отделка, печь. Срок — от 21 дня. Индивидуальные и типовые проекты. Гарантия 1 год.',
+  price: 'от 500 000 ₽',
+  heroText: 'Полный цикл строительства бани от проектирования до первого пара. Работаем по индивидуальным и типовым проектам в Москве и Подмосковье.',
+  features: [
+    'Индивидуальное проектирование под участок',
+    'Надёжный ленточный или свайный фундамент',
+    'Сруб из профилированного бруса или бревна',
+    'Кровля с утеплением и гидроизоляцией',
+    'Полная внутренняя отделка парной',
+    'Установка банной печи и дымохода',
+  ],
+  includes: [
+    'Разработка проекта и сметы',
+    'Фундаментные работы',
+    'Возведение стен и кровли',
+    'Инженерные коммуникации',
+    'Внутренняя отделка',
+    'Монтаж печи',
+    'Электрика и освещение',
+    'Вентиляционная система',
+  ],
+};
+---
+
+<BaseLayout 
+  title={service.metaTitle} 
+  description={service.metaDescription}
+  heroTag="Услуги"
+  heroTitle={service.title}
+  heroSubtitle={service.heroText}
+>
+  <section class="service-content">
+    <div class="container">
+      <div class="content-grid">
+        <div class="features-block">
+          <h2>Преимущества</h2>
+          <ul class="features-list">
+            {service.features.map(f => <li><span class="check">✓</span> {f}</li>)}
+          </ul>
+        </div>
+        <div class="includes-block">
+          <h2>Что входит в стоимость</h2>
+          <ul class="includes-list">
+            {service.includes.map((item, i) => <li><span class="num">{i + 1}</span> {item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-process">
+    <div class="container">
+      <h2>Этапы работы</h2>
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Консультация</h3>
+          <p>Обсуждаем проект, выезжаем на участок, составляем смету</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Проектирование</h3>
+          <p>Разрабатываем проект с учётом ваших пожеланий</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Строительство</h3>
+          <p>Возводим баню от фундамента до крыши</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Отделка</h3>
+          <p>Выполняем внутреннюю отделку и устанавливаем печь</p>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <h3>Сдача</h3>
+          <p>Проверяем работу, подписываем акт, даём гарантию</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Готовы построить баню мечты?</h2>
+        <p>Оставьте заявку — рассчитаем стоимость и предложим оптимальный проект</p>
+        <a href="/#contact-form" class="btn btn-primary">Получить расчёт</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:inline>
+  .service-hero {
+    padding: 40px 0 60px;
+    background: var(--bg-warm);
+  }
+  .breadcrumb {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .breadcrumb a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover { color: var(--accent); }
+  .service-hero h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    margin: 0 0 16px;
+  }
+  .hero-text {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 0 32px;
+    line-height: 1.6;
+  }
+  .hero-price {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .price-label {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .price-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+
+  .service-content { padding: 80px 0; }
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  .features-block h2, .includes-block h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 24px;
+  }
+  .features-list, .includes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .features-list li, .includes-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+  }
+  .check {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .num {
+    width: 28px;
+    height: 28px;
+    background: var(--accent-light);
+    color: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .service-process {
+    padding: 80px 0;
+    background: var(--bg-warm);
+  }
+  .service-process h2 {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 48px;
+  }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+  }
+  .step {
+    text-align: center;
+  }
+  .step-num {
+    width: 48px;
+    height: 48px;
+    background: var(--accent);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 auto 16px;
+  }
+  .step h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  .step p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .cta-section { padding: 80px 0; }
+  .cta-box {
+    background: var(--text);
+    color: var(--white);
+    padding: 48px;
+    border-radius: var(--radius);
+    text-align: center;
+  }
+  .cta-box h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 12px;
+  }
+  .cta-box p {
+    color: rgba(255,255,255,0.8);
+    margin: 0 0 24px;
+  }
+  .cta-box .btn-primary {
+    background: var(--accent);
+  }
+
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; gap: 48px; }
+    .process-steps { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .cta-box { padding: 32px 24px; }
+  }
+</style>

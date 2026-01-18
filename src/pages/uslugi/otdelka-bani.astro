@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const service = {
+  title: 'Отделка бани под ключ',
+  metaTitle: 'Отделка бани под ключ в Москве — от 400 000 ₽ | PurePar',
+  metaDescription: 'Профессиональная внутренняя отделка бань: липа, кедр, ольха камерной сушки. Полки, освещение, вентиляция. Выезд бесплатно. Гарантия 1 год.',
+  price: 'от 400 000 ₽',
+  heroText: 'Профессиональная внутренняя отделка бань любой сложности в Москве и Подмосковье. Работаем с премиальными материалами: липа, кедр, ольха, осина.',
+  features: [
+    'Вагонка только камерной сушки',
+    'Профессиональная пароизоляция Tyvek',
+    'Качественное утепление базальтовой ватой',
+    'Эргономичные полки из массива',
+    'Современное влагозащищённое освещение',
+    'Правильная вентиляция парной',
+  ],
+  includes: [
+    'Выезд на замер и консультация',
+    'Разработка дизайн-проекта',
+    'Каркас и обрешётка',
+    'Утепление и пароизоляция',
+    'Обшивка вагонкой',
+    'Изготовление полков',
+    'Монтаж освещения',
+    'Вентиляционная система',
+  ],
+};
+---
+
+<BaseLayout 
+  title={service.metaTitle} 
+  description={service.metaDescription}
+  heroTag="Услуги"
+  heroTitle={service.title}
+  heroSubtitle={service.heroText}
+>
+  <section class="service-content">
+    <div class="container">
+      <div class="content-grid">
+        <div class="features-block">
+          <h2>Преимущества нашей отделки</h2>
+          <ul class="features-list">
+            {service.features.map(f => <li><span class="check">✓</span> {f}</li>)}
+          </ul>
+        </div>
+        <div class="includes-block">
+          <h2>Что входит в стоимость</h2>
+          <ul class="includes-list">
+            {service.includes.map((item, i) => <li><span class="num">{i + 1}</span> {item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="materials-section">
+    <div class="container">
+      <h2>Материалы для отделки</h2>
+      <p class="section-desc">Выбирайте материал под ваши предпочтения и бюджет</p>
+      <div class="materials-grid">
+        <a href="/materialy/lipa" class="material-card">
+          <h3>Липа</h3>
+          <p>Классика для русской бани. Приятный аромат, низкая теплопроводность.</p>
+        </a>
+        <a href="/materialy/kedr" class="material-card">
+          <h3>Кедр</h3>
+          <p>Премиум-класс. Антисептические свойства, уникальный хвойный аромат.</p>
+        </a>
+        <a href="/materialy/olha" class="material-card">
+          <h3>Ольха</h3>
+          <p>Благородный красноватый оттенок. Устойчива к влаге и температуре.</p>
+        </a>
+        <a href="/materialy/osina" class="material-card">
+          <h3>Осина</h3>
+          <p>Экономичный вариант. Традиционный материал для русских бань.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Готовы обновить вашу баню?</h2>
+        <p>Оставьте заявку — приедем, замерим и предложим лучшее решение</p>
+        <a href="/#contact-form" class="btn btn-primary">Получить расчёт</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:inline>
+  .service-hero { padding: 40px 0 60px; background: var(--bg-warm); }
+  .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+  .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .service-hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin: 0 0 16px; }
+  .hero-text { font-size: 18px; color: var(--text-muted); max-width: 700px; margin: 0 0 32px; line-height: 1.6; }
+  .hero-price { display: flex; align-items: baseline; gap: 12px; margin-bottom: 32px; }
+  .price-label { font-size: 14px; color: var(--text-muted); }
+  .price-value { font-size: 32px; font-weight: 800; color: var(--accent); }
+
+  .service-content { padding: 80px 0; }
+  .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .features-block h2, .includes-block h2 { font-size: 24px; font-weight: 700; margin: 0 0 24px; }
+  .features-list, .includes-list { list-style: none; padding: 0; margin: 0; }
+  .features-list li, .includes-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+  .check { color: var(--accent); font-weight: 700; }
+  .num { width: 28px; height: 28px; background: var(--accent-light); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+
+  .materials-section { padding: 80px 0; background: var(--bg-warm); }
+  .materials-section h2 { font-size: 28px; font-weight: 700; text-align: center; margin: 0 0 12px; }
+  .section-desc { text-align: center; color: var(--text-muted); margin: 0 0 40px; }
+  .materials-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .material-card { background: var(--white); padding: 28px; border-radius: var(--radius); border: 1px solid var(--border); text-decoration: none; color: inherit; transition: all 0.3s; }
+  .material-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); border-color: var(--accent); }
+  .material-card h3 { font-size: 20px; font-weight: 700; margin: 0 0 12px; }
+  .material-card p { font-size: 14px; color: var(--text-muted); margin: 0; line-height: 1.5; }
+
+  .cta-section { padding: 80px 0; }
+  .cta-box { background: var(--text); color: var(--white); padding: 48px; border-radius: var(--radius); text-align: center; }
+  .cta-box h2 { font-size: 28px; font-weight: 700; margin: 0 0 12px; }
+  .cta-box p { color: rgba(255,255,255,0.8); margin: 0 0 24px; }
+
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .materials-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .materials-grid { grid-template-columns: 1fr; }
+    .cta-box { padding: 32px 24px; }
+  }
+</style>

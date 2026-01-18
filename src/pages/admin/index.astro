@@ -1,0 +1,450 @@
+---
+import { getSessionFromCookie } from '../../lib/auth';
+import { prisma } from '../../lib/prisma';
+import { hasTelegramConfig } from '../../lib/telegram';
+
+export const prerender = false;
+
+const session = getSessionFromCookie(Astro.request.headers.get('cookie'));
+if (!session) {
+  return Astro.redirect('/admin/login');
+}
+
+const url = new URL(Astro.request.url);
+const statusFilter = url.searchParams.get('status') || 'all';
+const page = parseInt(url.searchParams.get('page') || '1');
+const limit = 20;
+
+const where = statusFilter !== 'all' ? { status: statusFilter } : {};
+
+const [leads, total] = await Promise.all([
+  prisma.lead.findMany({
+    where,
+    orderBy: { createdAt: 'desc' },
+    skip: (page - 1) * limit,
+    take: limit,
+  }),
+  prisma.lead.count({ where }),
+]);
+
+const totalPages = Math.ceil(total / limit);
+const hasTelegram = hasTelegramConfig();
+
+const statusLabels: Record<string, string> = {
+  NEW: 'Новая',
+  IN_PROGRESS: 'В работе',
+  DONE: 'Завершена',
+  ARCHIVED: 'Архив',
+};
+
+const statusColors: Record<string, string> = {
+  NEW: '#3b82f6',
+  IN_PROGRESS: '#f59e0b',
+  DONE: '#22c55e',
+  ARCHIVED: '#6b7280',
+};
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админка — PurePar</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+    }
+    .header {
+      background: #111;
+      border-bottom: 1px solid #222;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .logo span { color: #c9a227; }
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-primary {
+      background: #c9a227;
+      color: #0a0a0a;
+    }
+    .btn-primary:hover { background: #d4af37; }
+    .btn-secondary {
+      background: #222;
+      color: #fff;
+      border: 1px solid #333;
+    }
+    .btn-secondary:hover { background: #333; }
+    .btn-danger {
+      background: #3d1a1a;
+      color: #ff6b6b;
+      border: 1px solid #5c2626;
+    }
+    .btn-danger:hover { background: #4d2222; }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #c9a227;
+    }
+    .stat-label {
+      color: #888;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+    .filters {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #888;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: #222;
+      color: #fff;
+      border-color: #c9a227;
+    }
+    .table-container {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #222;
+    }
+    th {
+      background: #0a0a0a;
+      color: #888;
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+    tr:hover { background: #1a1a1a; }
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .action-btn {
+      padding: 0.375rem 0.625rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      border: 1px solid #333;
+      background: #222;
+      color: #fff;
+      transition: all 0.2s;
+    }
+    .action-btn:hover { background: #333; }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .page-btn {
+      padding: 0.5rem 0.875rem;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #888;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .page-btn:hover, .page-btn.active {
+      background: #222;
+      color: #fff;
+      border-color: #c9a227;
+    }
+    .empty {
+      text-align: center;
+      padding: 3rem;
+      color: #666;
+    }
+    .telegram-section {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .telegram-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .phone-link {
+      color: #c9a227;
+      text-decoration: none;
+    }
+    .phone-link:hover { text-decoration: underline; }
+    select {
+      padding: 0.375rem 0.5rem;
+      background: #222;
+      border: 1px solid #333;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .container { padding: 1rem; }
+      .header { padding: 1rem; }
+      th, td { padding: 0.75rem 0.5rem; font-size: 0.875rem; }
+      .table-container { overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">Pure<span>Par</span> Admin</div>
+    <div class="header-actions">
+      <span style="color: #888; font-size: 0.875rem;">{session.email}</span>
+      <button class="btn btn-secondary" id="logoutBtn">Выйти</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-value">{total}</div>
+        <div class="stat-label">Всего заявок</div>
+      </div>
+    </div>
+
+    <div class="telegram-section">
+      <div class="telegram-title">
+        📱 Telegram уведомления
+      </div>
+      <div id="telegramStatus">Загрузка...</div>
+    </div>
+
+    <div class="filters">
+      <a href="/admin" class={`filter-btn ${statusFilter === 'all' ? 'active' : ''}`}>Все</a>
+      <a href="/admin?status=NEW" class={`filter-btn ${statusFilter === 'NEW' ? 'active' : ''}`}>Новые</a>
+      <a href="/admin?status=IN_PROGRESS" class={`filter-btn ${statusFilter === 'IN_PROGRESS' ? 'active' : ''}`}>В работе</a>
+      <a href="/admin?status=DONE" class={`filter-btn ${statusFilter === 'DONE' ? 'active' : ''}`}>Завершены</a>
+      <a href="/admin?status=ARCHIVED" class={`filter-btn ${statusFilter === 'ARCHIVED' ? 'active' : ''}`}>Архив</a>
+    </div>
+
+    <div class="table-container">
+      {leads.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Дата</th>
+              <th>Имя</th>
+              <th>Контакт</th>
+              <th>Комментарий</th>
+              <th>Статус</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody>
+            {leads.map((lead) => (
+              <tr data-id={lead.id}>
+                <td>#{lead.id}</td>
+                <td>{new Date(lead.createdAt).toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })}</td>
+                <td>{lead.name}</td>
+                <td>
+                  <a href={`tel:${lead.contact}`} class="phone-link">{lead.contact}</a>
+                </td>
+                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                  {lead.comment || '—'}
+                </td>
+                <td>
+                  <select class="status-select" data-id={lead.id} style={`border-color: ${statusColors[lead.status]}`}>
+                    <option value="NEW" selected={lead.status === 'NEW'}>Новая</option>
+                    <option value="IN_PROGRESS" selected={lead.status === 'IN_PROGRESS'}>В работе</option>
+                    <option value="DONE" selected={lead.status === 'DONE'}>Завершена</option>
+                    <option value="ARCHIVED" selected={lead.status === 'ARCHIVED'}>Архив</option>
+                  </select>
+                </td>
+                <td class="actions">
+                  <button class="action-btn delete-btn" data-id={lead.id}>🗑️</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div class="empty">Заявок пока нет</div>
+      )}
+    </div>
+
+    {totalPages > 1 && (
+      <div class="pagination">
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+          <a 
+            href={`/admin?status=${statusFilter}&page=${p}`} 
+            class={`page-btn ${p === page ? 'active' : ''}`}
+          >
+            {p}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <script>
+    // Logout
+    document.getElementById('logoutBtn')?.addEventListener('click', async () => {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      window.location.href = '/admin/login';
+    });
+
+    // Status change
+    document.querySelectorAll('.status-select').forEach((select) => {
+      select.addEventListener('change', async (e) => {
+        const target = e.target as HTMLSelectElement;
+        const id = target.dataset.id;
+        const status = target.value;
+        
+        await fetch(`/api/leads/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status }),
+        });
+      });
+    });
+
+    // Delete
+    document.querySelectorAll('.delete-btn').forEach((btn) => {
+      btn.addEventListener('click', async (e) => {
+        const target = e.target as HTMLButtonElement;
+        const id = target.dataset.id;
+        
+        if (confirm('Удалить заявку?')) {
+          await fetch(`/api/leads/${id}`, { method: 'DELETE' });
+          window.location.reload();
+        }
+      });
+    });
+
+    // Telegram status
+    async function loadTelegramStatus() {
+      const container = document.getElementById('telegramStatus');
+      if (!container) return;
+
+      try {
+        const response = await fetch('/api/admin/telegram', { cache: 'no-store' });
+        const data = await response.json();
+
+        if (!data.configured) {
+          container.innerHTML = `<p style="color: #888;">Telegram бот не настроен (добавьте TELEGRAM_BOT_TOKEN и TELEGRAM_BOT_USERNAME в .env)</p>`;
+          return;
+        }
+
+        if (data.linked) {
+          const linkedAt = data.linkedAt ? new Date(data.linkedAt).toLocaleDateString('ru-RU') : '';
+          container.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+              <p style="color: #22c55e; margin: 0;">✓ Привязан: @${data.username || data.firstName || 'Telegram'}${linkedAt ? ` (${linkedAt})` : ''}</p>
+              <button class="btn btn-danger" id="unlinkTelegram">Отвязать</button>
+            </div>
+          `;
+          document.getElementById('unlinkTelegram')?.addEventListener('click', async () => {
+            await fetch('/api/admin/telegram', { method: 'DELETE' });
+            window.location.reload();
+          });
+        } else {
+          container.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+              <p style="color: #888; margin: 0;">Не привязан</p>
+              <button class="btn btn-primary" id="bindTelegram">Привязать Telegram</button>
+              <span id="linkStatus"></span>
+            </div>
+          `;
+          document.getElementById('bindTelegram')?.addEventListener('click', async () => {
+            const linkStatus = document.getElementById('linkStatus');
+            if (linkStatus) linkStatus.innerHTML = '<span style="color: #888;">Создание ссылки...</span>';
+            
+            const response = await fetch('/api/admin/telegram', { method: 'POST' });
+            const result = await response.json();
+            
+            if (result.ok && result.deepLink) {
+              window.open(result.deepLink, '_blank', 'noopener,noreferrer');
+              if (linkStatus) {
+                linkStatus.innerHTML = `
+                  <span style="color: #f59e0b;">Откройте ссылку в Telegram и нажмите Start</span>
+                  <a href="${result.deepLink}" target="_blank" rel="noreferrer" style="color: #c9a227; margin-left: 0.5rem;">Открыть ссылку</a>
+                `;
+              }
+            } else {
+              if (linkStatus) linkStatus.innerHTML = '<span style="color: #ef4444;">Ошибка создания ссылки</span>';
+            }
+          });
+        }
+      } catch (error) {
+        container.innerHTML = `<p style="color: #ef4444;">Ошибка загрузки статуса Telegram</p>`;
+      }
+    }
+
+    loadTelegramStatus();
+  </script>
+</body>
+</html>
