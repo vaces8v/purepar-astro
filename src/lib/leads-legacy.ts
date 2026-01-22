@@ -1,8 +1,6 @@
 import type { APIRoute } from 'astro';
-import { PrismaClient } from '@prisma/client';
-import { telegramSendMessage, hasTelegramConfig } from '../../lib/telegram';
-
-const prisma = new PrismaClient();
+import { prisma } from './prisma';
+import { telegramSendMessage, hasTelegramConfig } from './telegram';
 
 export const POST: APIRoute = async ({ request }) => {
   try {

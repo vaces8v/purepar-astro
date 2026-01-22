@@ -10,6 +10,19 @@ export default defineConfig({
     adapter: node({
         mode: 'middleware'
     }),
+    vite: {
+        build: {
+            minify: true,
+            sourcemap: false,
+            chunkSizeWarningLimit: 500,
+            terserOptions: {
+                compress: {
+                    drop_console: true,
+                    drop_debugger: true
+                }
+            }
+        }
+    },
     compressHTML: true,
     integrations: [sitemap()],
     prefetch: {

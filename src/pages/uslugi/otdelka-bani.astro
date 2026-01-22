@@ -1,134 +1,676 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import masterImg from '../../assets/images/master.jpg';
+
+const YM_ID = Number(import.meta.env.PUBLIC_YANDEX_METRICA_ID ?? 105996360);
+
+const CONTACT = {
+  phoneRaw: '79165835566',
+  phoneDisplay: '+7 (916) 583-55-66',
+  telegramUrl: 'https://t.me/79165835566',
+  whatsappUrl: 'https://wa.me/79165835566',
+} as const;
 
 const service = {
   title: 'Отделка бани под ключ',
-  metaTitle: 'Отделка бани под ключ в Москве — от 400 000 ₽ | PurePar',
-  metaDescription: 'Профессиональная внутренняя отделка бань: липа, кедр, ольха камерной сушки. Полки, освещение, вентиляция. Выезд бесплатно. Гарантия 1 год.',
-  price: 'от 400 000 ₽',
-  heroText: 'Профессиональная внутренняя отделка бань любой сложности в Москве и Подмосковье. Работаем с премиальными материалами: липа, кедр, ольха, осина.',
-  features: [
-    'Вагонка только камерной сушки',
-    'Профессиональная пароизоляция Tyvek',
-    'Качественное утепление базальтовой ватой',
-    'Эргономичные полки из массива',
-    'Современное влагозащищённое освещение',
-    'Правильная вентиляция парной',
-  ],
-  includes: [
-    'Выезд на замер и консультация',
-    'Разработка дизайн-проекта',
-    'Каркас и обрешётка',
-    'Утепление и пароизоляция',
-    'Обшивка вагонкой',
-    'Изготовление полков',
-    'Монтаж освещения',
-    'Вентиляционная система',
-  ],
+  metaTitle: 'Отделка бани под ключ в Москве — смета за 24 часа | PurePar',
+  metaDescription: 'Профессиональная отделка бань и парных. Смета за 24 часа. Замер бесплатно при согласовании работ. Гарантия 1 год. Работаем в Москве и МО.',
+};
+
+const includes = [
+  { title: 'Замер и проект', desc: 'Бесплатно при согласовании работ. Планируем эргономику и свет.', icon: 'ruler' },
+  { title: 'Каркас и утепление', desc: 'Используем Tyvek и базальтовую вату для идеального пара.', icon: 'hammer' },
+  { title: 'Премиум отделка', desc: 'Вагонка камерной сушки (липа, кедр, ольха) и массив.', icon: 'wood' },
+  { title: 'Свет и вентиляция', desc: 'Влагозащищенное LED-освещение и правильный воздухообмен.', icon: 'lightbulb' },
+];
+
+const materials = [
+  { name: 'Липа', quality: 'Экстра', desc: 'Классика с медовым ароматом. Не течет смола, не обжигает.' },
+  { name: 'Кедр', quality: 'Канадский', desc: 'Премиум выбор. Целебные свойства и неповторимый цвет.' },
+  { name: 'Ольха', quality: 'Премиум', desc: 'Благородный розовый оттенок. Устойчива к высокой влаге.' },
+  { name: 'Абаш', quality: 'Африканский', desc: 'Идеален для полков. Остается прохладным даже в сильный жар.' },
+];
+
+const master = {
+  name: 'Владимир Морозов',
+  title: 'Эксперт по отделке бань',
+  experience: '17',
+  projects: '100+',
+  quote: '«Отделка бани требует большего мастерства, чем отделка новой. Нужно не просто закрыть дефекты, а найти причину их появления. Мы проводим тщательную дефектовку, чтобы ваша баня снова стала безопасной и долговечной.»'
 };
 ---
 
 <BaseLayout 
   title={service.metaTitle} 
   description={service.metaDescription}
-  heroTag="Услуги"
-  heroTitle={service.title}
-  heroSubtitle={service.heroText}
 >
-  <section class="service-content">
-    <div class="container">
-      <div class="content-grid">
-        <div class="features-block">
-          <h2>Преимущества нашей отделки</h2>
-          <ul class="features-list">
-            {service.features.map(f => <li><span class="check">✓</span> {f}</li>)}
-          </ul>
+  <section class="lp-hero">
+    <div class="lp-hero-bg">
+      <img src="/20251219_161728.jpg" alt="Отделка бани" class="bg-img" loading="eager" />
+      <div class="lp-hero-overlay"></div>
+    </div>
+    
+    <div class="container lp-hero-grid">
+      <div class="lp-hero-copy">
+        <div class="lp-badge">
+          <span class="pulse-dot"></span>
+          Премиальное качество
         </div>
-        <div class="includes-block">
-          <h2>Что входит в стоимость</h2>
-          <ul class="includes-list">
-            {service.includes.map((item, i) => <li><span class="num">{i + 1}</span> {item}</li>)}
-          </ul>
+        <h1>Внутренняя отделка бань <br/><span class="text-accent-gradient">с гарантией 1 год</span></h1>
+        <p class="lp-subtitle">
+          Создаем авторские парные, в которых легко дышится. Смета за 24 часа после замера. Чистая работа без скрытых платежей.
+        </p>
+        
+        <div class="lp-hero-features">
+          <div class="feat-item">
+            <svg class="feat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <div class="feat-text"><strong>Смета</strong><span>за 24 часа</span></div>
+          </div>
+          <div class="feat-item">
+            <svg class="feat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+            <div class="feat-text"><strong>Замер</strong><span>бесплатно</span></div>
+          </div>
+          <div class="feat-item">
+            <svg class="feat-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <div class="feat-text"><strong>Гарантия</strong><span>12 месяцев</span></div>
+          </div>
+        </div>
+
+        <div class="lp-actions">
+          <a class="btn btn-primary btn-lg btn-glow" href="#contact-form">Получить расчет</a>
+          <a class="btn btn-outline-white btn-lg" href={`tel:+${CONTACT.phoneRaw}`}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            {CONTACT.phoneDisplay}
+          </a>
+        </div>
+      </div>
+
+      <div class="lp-form-container">
+        <div class="form-card glass-card">
+          <div class="form-header">
+            <h2>Оставить заявку</h2>
+            <p>Напишите нам, и мы перезвоним в течение 15 минут</p>
+          </div>
+          <form id="lead-form">
+            <div class="form-group">
+              <input name="name" type="text" placeholder="Ваше имя" required />
+            </div>
+            <div class="form-group">
+              <input name="phone" type="tel" class="phone-input-field" placeholder="+7 (___) ___-__-__" required />
+            </div>
+            <div class="form-group">
+              <textarea name="message" rows="2" placeholder="Что нужно сделать? (площадь, материал...)"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full btn-lg">Отправить</button>
+            <p class="form-status" id="lead-status" aria-live="polite"></p>
+            <div class="form-privacy">
+              Нажимая кнопку, вы соглашаетесь с <a href="/privacy">политикой конфиденциальности</a>
+            </div>
+          </form>
+        </div>
+        
+        <div class="floating-trust glass-card">
+          <div class="trust-avatars">
+            <img src="/20251219_161625.jpg" alt="" />
+            <img src="/20251219_161652.jpg" alt="" />
+            <img src="/20251008_122449.jpg" alt="" />
+            <div class="avatar-plus">+100</div>
+          </div>
+          <div class="trust-text">
+            <strong>Довольных клиентов</strong>
+            <span>в Москве и области</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="materials-section">
+  <section class="lp-section bg-white" id="includes">
     <div class="container">
-      <h2>Материалы для отделки</h2>
-      <p class="section-desc">Выбирайте материал под ваши предпочтения и бюджет</p>
-      <div class="materials-grid">
-        <a href="/materialy/lipa" class="material-card">
-          <h3>Липа</h3>
-          <p>Классика для русской бани. Приятный аромат, низкая теплопроводность.</p>
-        </a>
-        <a href="/materialy/kedr" class="material-card">
-          <h3>Кедр</h3>
-          <p>Премиум-класс. Антисептические свойства, уникальный хвойный аромат.</p>
-        </a>
-        <a href="/materialy/olha" class="material-card">
-          <h3>Ольха</h3>
-          <p>Благородный красноватый оттенок. Устойчива к влаге и температуре.</p>
-        </a>
-        <a href="/materialy/osina" class="material-card">
-          <h3>Осина</h3>
-          <p>Экономичный вариант. Традиционный материал для русских бань.</p>
-        </a>
+      <div class="section-header reveal">
+        <span class="section-tag">Преимущества</span>
+        <h2>Почему выбирают PurePar</h2>
+      </div>
+      <div class="grid-4">
+        {includes.map((item, idx) => (
+          <div class="include-card reveal" style={`transition-delay: ${idx * 0.1}s;`}>
+            <div class="include-icon-box">
+              {item.icon === 'ruler' && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>}
+              {item.icon === 'hammer' && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 12-8.5 8.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L12 9"/><path d="M17.64 15 22 10.64"/><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/></svg>}
+              {item.icon === 'wood' && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M10 12h4"/><path d="M10 16h4"/></svg>}
+              {item.icon === 'lightbulb' && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>}
+            </div>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="cta-section">
+  <section class="lp-section" id="master">
     <div class="container">
-      <div class="cta-box">
-        <h2>Готовы обновить вашу баню?</h2>
-        <p>Оставьте заявку — приедем, замерим и предложим лучшее решение</p>
-        <a href="/#contact-form" class="btn btn-primary">Получить расчёт</a>
+      <div class="master-trust-card reveal">
+        <div class="master-image">
+          <Image src={masterImg} alt="Владимир Морозов" width={500} quality="high" />
+        </div>
+        <div class="master-info">
+          <span class="section-tag">О мастере</span>
+          <h2>{master.name}</h2>
+          <p class="master-role">{master.title}</p>
+          <blockquote>
+            {master.quote}
+          </blockquote>
+          <ul class="master-stats">
+            <li><strong>{master.projects}</strong> <span>Проектов</span></li>
+            <li><strong>100%</strong> <span>Результат</span></li>
+            <li><strong>12 мес.</strong> <span>Гарантия</span></li>
+          </ul>
+          <div class="master-actions">
+            <a href={CONTACT.whatsappUrl} class="btn btn-primary" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+              </svg>
+              Консультация в WhatsApp
+            </a>
+            <a href={CONTACT.telegramUrl} class="btn btn-outline" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"></path>
+              </svg>
+              Написать в Telegram
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <section class="lp-section bg-white" id="materials">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Материалы</span>
+        <h2>Только лучшие породы дерева</h2>
+        <p>Работаем с материалами камерной сушки (влажность 8-12%)</p>
+      </div>
+      <div class="grid-4">
+        {materials.map((m, idx) => (
+          <div class="material-card-new reveal" style={`transition-delay: ${idx * 0.1}s;`}>
+            <div class="mat-info">
+              <span class="mat-quality">{m.quality}</span>
+              <h3>{m.name}</h3>
+              <p>{m.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section" id="steps">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Как мы работаем</span>
+        <h2>Ваша баня за 4 шага</h2>
+      </div>
+      <div class="steps-modern">
+        <div class="step-modern-item reveal">
+          <div class="step-head">
+            <span class="step-n">01</span>
+            <h3>Замер</h3>
+          </div>
+          <p>Бесплатный выезд, точные замеры и консультация по материалам.</p>
+        </div>
+        <div class="step-modern-item reveal" style="transition-delay: 0.1s;">
+          <div class="step-head">
+            <span class="step-n">02</span>
+            <h3>Смета</h3>
+          </div>
+          <p>Подробный расчет стоимости работ и материалов за 24 часа.</p>
+        </div>
+        <div class="step-modern-item reveal" style="transition-delay: 0.2s;">
+          <div class="step-head">
+            <span class="step-n">03</span>
+            <h3>Отделка</h3>
+          </div>
+          <p>Аккуратный монтаж с соблюдением всех технологий и сроков.</p>
+        </div>
+        <div class="step-modern-item reveal" style="transition-delay: 0.3s;">
+          <div class="step-head">
+            <span class="step-n">04</span>
+            <h3>Сдача</h3>
+          </div>
+          <p>Финальная проверка, рекомендации по уходу и запуск бани.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section bg-dark text-white" id="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Портфолио</span>
+        <h2 class="text-white">Наши работы</h2>
+      </div>
+      <div class="gallery-mosaic">
+        <div class="gallery-main reveal">
+          <img src="/20251219_161625.jpg" alt="Отделка бани" loading="lazy" />
+        </div>
+        <div class="gallery-side reveal" style="transition-delay: 0.1s;">
+          <img src="/20251219_161652.jpg" alt="Отделка бани" loading="lazy" />
+          <img src="/20251008_122449.jpg" alt="Отделка бани" loading="lazy" />
+        </div>
+        <div class="gallery-bottom reveal" style="transition-delay: 0.2s;">
+          <img src="/20250919_125436.jpg" alt="Отделка бани" loading="lazy" />
+          <img src="/20251219_161638.jpg" alt="Отделка бани" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section" id="faq">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Вопросы</span>
+        <h2>Часто спрашивают</h2>
+      </div>
+      <div class="faq-accordion reveal">
+        <details class="faq-details" open>
+          <summary>Какие сроки выполнения работ?</summary>
+          <div class="faq-ans">Отделка стандартной парной занимает от 7 до 14 дней в зависимости от сложности и выбранных материалов.</div>
+        </details>
+        <details class="faq-details">
+          <summary>Даете ли вы гарантию?</summary>
+          <div class="faq-ans">Да, мы предоставляем официальную гарантию 1 год на все выполненные работы и материалы.</div>
+        </details>
+        <details class="faq-details">
+          <summary>Сколько стоит выезд замерщика?</summary>
+          <div class="faq-ans">Выезд и консультация в пределах Москвы и МО до 50 км от МКАД — бесплатно при условии дальнейшего сотрудничества.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline define:vars={{ YM_ID }}>
+    (function () {
+      // Reveal animations (excluding hero to prevent layout shift)
+      const observerOptions = {
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal:not(.lp-hero *)').forEach(el => observer.observe(el));
+
+      function formatPhone(digits) {
+        var formatted = "+7 (";
+        if (digits.length > 0) formatted += digits.slice(0, 3);
+        if (digits.length >= 3) formatted += ") " + digits.slice(3, 6);
+        if (digits.length >= 6) formatted += "-" + digits.slice(6, 8);
+        if (digits.length >= 8) formatted += "-" + digits.slice(8, 10);
+        return formatted;
+      }
+
+      function extractDigits(value) {
+        var digits = value.replace(/\D/g, "");
+        if (digits.startsWith("7")) digits = digits.slice(1);
+        if (digits.startsWith("8")) digits = digits.slice(1);
+        return digits.slice(0, 10);
+      }
+
+      function setupPhoneMask(input) {
+        input.addEventListener("focus", function () {
+          if (!input.value) {
+            input.value = "+7 (";
+            setTimeout(function() { input.setSelectionRange(4, 4); }, 0);
+          }
+        });
+
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Backspace") {
+            e.preventDefault();
+            var digits = extractDigits(input.value);
+            if (digits.length > 0) {
+              var newDigits = digits.slice(0, -1);
+              input.value = formatPhone(newDigits);
+              var newPos = input.value.length;
+              input.setSelectionRange(newPos, newPos);
+            } else {
+              input.value = "+7 (";
+              input.setSelectionRange(4, 4);
+            }
+            return;
+          }
+
+          if (e.key === "Delete") {
+            e.preventDefault();
+            return;
+          }
+
+          if (e.key.length === 1 && /\d/.test(e.key)) {
+            e.preventDefault();
+            var digits = extractDigits(input.value);
+            if (digits.length < 10) {
+              var newDigits = digits + e.key;
+              input.value = formatPhone(newDigits);
+              var newPos = input.value.length;
+              input.setSelectionRange(newPos, newPos);
+            }
+          }
+        });
+
+        input.addEventListener("input", function () {
+          var digits = extractDigits(input.value);
+          input.value = formatPhone(digits);
+          var newPos = input.value.length;
+          input.setSelectionRange(newPos, newPos);
+        });
+
+        input.addEventListener("paste", function (e) {
+          var pastedText = e.clipboardData ? e.clipboardData.getData("text") : "";
+          var pastedDigits = pastedText.replace(/\D/g, "");
+          if (pastedDigits.length > 0) {
+            e.preventDefault();
+            var digits = pastedDigits;
+            if (digits.startsWith("7") || digits.startsWith("8")) digits = digits.slice(1);
+            var newDigits = digits.slice(0, 10);
+            input.value = formatPhone(newDigits);
+            var newPos = input.value.length;
+            setTimeout(function() { input.setSelectionRange(newPos, newPos); }, 0);
+          }
+        });
+      }
+
+      document.querySelectorAll(".phone-input-field").forEach(function (input) {
+        setupPhoneMask(input);
+      });
+
+      var form = document.getElementById("lead-form");
+      var statusEl = document.getElementById("lead-status");
+      if (!form) return;
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        if (!statusEl) return;
+
+        var fd = new FormData(form);
+        var name = (fd.get("name") || "").toString().trim();
+        var phone = (fd.get("phone") || "").toString().trim();
+        var message = (fd.get("message") || "").toString().trim();
+
+        if (!name || phone.length < 18) {
+          statusEl.textContent = "Заполните имя и телефон";
+          statusEl.dataset.type = "error";
+          return;
+        }
+
+        statusEl.textContent = "Отправка...";
+        statusEl.dataset.type = "";
+
+        try {
+          var response = await fetch("/api/leads", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: name,
+              phone: phone,
+              message: message || null,
+              referrer: document.referrer || null,
+              landingPage: window.location.href,
+            }),
+          });
+
+          if (!response.ok) throw new Error("bad_status");
+          form.reset();
+          statusEl.textContent = "Заявка отправлена! Мы свяжемся с вами в ближайшее время.";
+          statusEl.dataset.type = "success";
+          if (typeof window.ym === "function") {
+            window.ym(YM_ID, "reachGoal", "lead_form");
+          }
+        } catch (err) {
+          statusEl.textContent = "Ошибка отправки. Попробуйте позже.";
+          statusEl.dataset.type = "error";
+        }
+      });
+    })();
+  </script>
 </BaseLayout>
 
 <style is:inline>
-  .service-hero { padding: 40px 0 60px; background: var(--bg-warm); }
-  .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
-  .breadcrumb a { color: var(--text-muted); text-decoration: none; }
-  .breadcrumb a:hover { color: var(--accent); }
-  .service-hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin: 0 0 16px; }
-  .hero-text { font-size: 18px; color: var(--text-muted); max-width: 700px; margin: 0 0 32px; line-height: 1.6; }
-  .hero-price { display: flex; align-items: baseline; gap: 12px; margin-bottom: 32px; }
-  .price-label { font-size: 14px; color: var(--text-muted); }
-  .price-value { font-size: 32px; font-weight: 800; color: var(--accent); }
-
-  .service-content { padding: 80px 0; }
-  .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
-  .features-block h2, .includes-block h2 { font-size: 24px; font-weight: 700; margin: 0 0 24px; }
-  .features-list, .includes-list { list-style: none; padding: 0; margin: 0; }
-  .features-list li, .includes-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
-  .check { color: var(--accent); font-weight: 700; }
-  .num { width: 28px; height: 28px; background: var(--accent-light); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
-
-  .materials-section { padding: 80px 0; background: var(--bg-warm); }
-  .materials-section h2 { font-size: 28px; font-weight: 700; text-align: center; margin: 0 0 12px; }
-  .section-desc { text-align: center; color: var(--text-muted); margin: 0 0 40px; }
-  .materials-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-  .material-card { background: var(--white); padding: 28px; border-radius: var(--radius); border: 1px solid var(--border); text-decoration: none; color: inherit; transition: all 0.3s; }
-  .material-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); border-color: var(--accent); }
-  .material-card h3 { font-size: 20px; font-weight: 700; margin: 0 0 12px; }
-  .material-card p { font-size: 14px; color: var(--text-muted); margin: 0; line-height: 1.5; }
-
-  .cta-section { padding: 80px 0; }
-  .cta-box { background: var(--text); color: var(--white); padding: 48px; border-radius: var(--radius); text-align: center; }
-  .cta-box h2 { font-size: 28px; font-weight: 700; margin: 0 0 12px; }
-  .cta-box p { color: rgba(255,255,255,0.8); margin: 0 0 24px; }
-
-  @media (max-width: 900px) {
-    .content-grid { grid-template-columns: 1fr; }
-    .materials-grid { grid-template-columns: repeat(2, 1fr); }
+  /* Premium Palette & Utils */
+  :root {
+    --accent-grad: linear-gradient(135deg, #B8860B 0%, #8B6914 100%);
+    --bg-light: #FDFBF7;
+    --text-main: #1A1A1A;
   }
-  @media (max-width: 600px) {
-    .materials-grid { grid-template-columns: 1fr; }
-    .cta-box { padding: 32px 24px; }
+  
+  .lp-section { padding: 120px 0; position: relative; overflow: hidden; }
+  .bg-white { background: #fff; }
+  .bg-dark { background: #111; }
+  .text-white { color: #fff; }
+  .text-accent-gradient { 
+    background: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Reveal Animation */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+  .reveal.active { opacity: 1; transform: translateY(0); }
+
+  /* Components */
+  .section-header { text-align: center; margin-bottom: 80px; }
+  .section-tag { 
+    display: inline-block; 
+    background: var(--accent-light); 
+    color: var(--accent-dark); 
+    padding: 8px 20px; 
+    border-radius: 100px; 
+    font-size: 12px; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    margin-bottom: 24px; 
+  }
+  .section-header h2 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; letter-spacing: -1px; }
+  .section-header p { color: var(--text-muted); margin-top: 16px; font-size: 18px; }
+
+  /* Hero Enhanced */
+  .lp-hero { 
+    padding: 100px 0 80px; 
+    position: relative;
+    overflow: hidden; 
+    color: #fff;
+  }
+  .lp-hero-bg { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden;
+  }
+  .lp-hero-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lp-hero-overlay { 
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+    background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 100%);
+    z-index: 1;
+  }
+  .lp-hero-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: center; }
+  
+  .lp-badge { 
+    display: inline-flex; align-items: center; gap: 10px; 
+    padding: 10px 20px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; 
+    font-size: 14px; font-weight: 700; margin-bottom: 32px; color: #fff;
+  }
+  .pulse-dot { width: 8px; height: 8px; background: #16a34a; border-radius: 50%; box-shadow: 0 0 0 rgba(22, 163, 74, 0.4); animation: pulse 2s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); } 100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); } }
+
+  .lp-hero h1 { font-size: clamp(40px, 6vw, 64px); line-height: 1.05; margin-bottom: 32px; font-weight: 800; }
+  .lp-subtitle { font-size: 20px; color: rgba(255,255,255,0.8); margin-bottom: 48px; max-width: 540px; line-height: 1.6; }
+  
+  .lp-hero-features { display: flex; gap: 40px; margin-bottom: 56px; }
+  .feat-item { display: flex; align-items: center; gap: 12px; }
+  .feat-icon { width: 24px; height: 24px; flex-shrink: 0; }
+  .feat-text { display: flex; flex-direction: column; line-height: 1.2; }
+  .feat-text strong { font-size: 16px; color: #fff; }
+  .feat-text span { font-size: 13px; color: rgba(255,255,255,0.6); }
+
+  .lp-actions { display: flex; gap: 20px; }
+  .btn-lg { padding: 20px 40px; font-size: 17px; font-weight: 700; border-radius: 14px; }
+  .btn-glow:hover { box-shadow: 0 10px 30px rgba(184, 134, 11, 0.3); transform: translateY(-2px); }
+  .btn-outline-white { border: 2px solid rgba(255,255,255,0.3); color: #fff; backdrop-filter: blur(5px); }
+  .btn-outline-white:hover { background: #fff; color: #000; border-color: #fff; }
+
+  /* Form Glassmorphism */
+  .lp-form-container { position: relative; }
+  .glass-card { 
+    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 32px;
+    padding: 48px; box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+    color: var(--text-main);
+  }
+  .form-header h2 { font-size: 28px; margin-bottom: 12px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group input, .form-group textarea { 
+    width: 100%; background: #f8f8f8; border: 1px solid var(--border); border-radius: 16px; 
+    padding: 18px 24px; font-size: 16px; transition: 0.3s; box-sizing: border-box;
+  }
+  .form-group input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-light); background: #fff; }
+
+  /* Floating Trust */
+  .floating-trust { 
+    position: absolute; bottom: -40px; left: -40px; 
+    display: flex; align-items: center; gap: 20px; padding: 20px 30px;
+    min-width: 280px; z-index: 3;
+  }
+  .trust-avatars { display: flex; align-items: center; }
+  .trust-avatars img, .avatar-plus { 
+    width: 44px; height: 44px; border-radius: 50%; border: 3px solid #fff; 
+    object-fit: cover; margin-left: -15px; 
+  }
+  .trust-avatars img:first-child { margin-left: 0; }
+  .avatar-plus { 
+    background: var(--accent); color: #fff; font-size: 12px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .trust-text { display: flex; flex-direction: column; line-height: 1.2; }
+  .trust-text strong { font-size: 15px; }
+  .trust-text span { font-size: 12px; color: var(--text-muted); }
+
+  /* Include Cards */
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+  .include-card { 
+    background: #fff; padding: 40px; border-radius: 24px; border: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  .include-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: var(--shadow); }
+  .include-icon-box { 
+    width: 56px; height: 56px; background: var(--accent-light); color: var(--accent-dark); 
+    border-radius: 16px; display: flex; align-items: center; justify-content: center; 
+    margin-bottom: 24px;
+  }
+  .include-icon-box svg { width: 28px; height: 28px; }
+  .include-card h3 { font-size: 20px; margin-bottom: 16px; }
+  .include-card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+
+  /* Materials */
+  .material-card-new { 
+    background: #fdfbf7; padding: 40px; border-radius: 24px; border: 1px solid var(--border);
+    position: relative; overflow: hidden; transition: 0.3s;
+  }
+  .material-card-new:hover { border-color: var(--accent); background: #fff; box-shadow: var(--shadow); }
+  .mat-quality { 
+    position: absolute; top: 20px; right: 20px; font-size: 11px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 1px; color: var(--accent);
+    background: var(--accent-light); padding: 4px 10px; border-radius: 4px;
+  }
+  .material-card-new h3 { font-size: 22px; margin-bottom: 16px; }
+  .material-card-new p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+
+  /* Master Trust Card */
+  .master-trust-card { 
+    display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 60px; align-items: center;
+    background: #fff; border-radius: 40px; padding: 60px; border: 1px solid var(--border);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.05);
+  }
+  .master-image { position: relative; border-radius: 30px; overflow: hidden; }
+  .master-image img { width: 100%; height: auto; display: block; }
+  .master-info h2 { font-size: 40px; margin-bottom: 8px; }
+  .master-role { color: var(--accent); font-weight: 700; font-size: 18px; margin-bottom: 32px; }
+  .master-info blockquote { font-size: 19px; font-style: italic; color: var(--text-muted); border-left: 4px solid var(--accent); padding-left: 24px; margin: 32px 0; line-height: 1.6; }
+  .master-stats { display: flex; gap: 40px; margin-bottom: 40px; }
+  .master-stats strong { font-size: 28px; display: block; color: var(--text); }
+  .master-stats span { font-size: 14px; color: var(--text-muted); }
+
+  /* Modern Steps */
+  .steps-modern { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+  .step-modern-item { position: relative; }
+  .step-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .step-n { font-size: 40px; font-weight: 900; color: var(--accent-light); opacity: 0.8; font-family: serif; }
+  .step-modern-item h3 { font-size: 22px; }
+  .step-modern-item p { color: var(--text-muted); line-height: 1.6; }
+
+  /* Mosaic Gallery */
+  .gallery-mosaic { display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; margin-bottom: 40px; max-width: 100%; }
+  .gallery-mosaic img { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; display: block; }
+  .gallery-main { height: 500px; overflow: hidden; }
+  .gallery-side { display: flex; flex-direction: column; gap: 24px; height: 500px; }
+  .gallery-side img { height: calc(50% - 12px); }
+  .gallery-bottom { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; height: 300px; }
+
+  /* FAQ Accordion */
+  .faq-accordion { max-width: 840px; margin: 0 auto; }
+  .faq-details { background: #fff; border: 1px solid var(--border); border-radius: 20px; margin-bottom: 16px; transition: 0.3s; }
+  .faq-details summary { padding: 24px 32px; cursor: pointer; font-weight: 700; font-size: 18px; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .faq-details summary::after { content: '↓'; font-size: 20px; color: var(--accent); transition: 0.3s; }
+  .faq-details[open] { border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+  .faq-details[open] summary::after { transform: rotate(180deg); }
+  .faq-ans { padding: 0 32px 32px; color: var(--text-muted); line-height: 1.7; }
+
+  @media (max-width: 1024px) {
+    .lp-hero { padding: 80px 0 60px; }
+    .lp-hero-grid { grid-template-columns: 1fr; text-align: center; gap: 60px; }
+    .lp-hero-copy { align-items: center; display: flex; flex-direction: column; }
+    .lp-hero-copy h1 { font-size: 36px; }
+    .lp-actions { width: 100%; flex-direction: column; }
+    .floating-trust { position: static; margin-top: 30px; justify-content: center; }
+    .master-trust-card { grid-template-columns: 1fr; padding: 40px; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .steps-modern { grid-template-columns: repeat(2, 1fr); }
+    .gallery-mosaic { grid-template-columns: 1fr; }
+    .gallery-side, .gallery-bottom { height: auto; grid-template-columns: 1fr; }
+    .gallery-main { height: 350px; }
+  }
+  @media (max-width: 640px) {
+    .lp-hero { padding: 40px 0 30px; }
+    .lp-hero-copy h1 { font-size: 28px; line-height: 1.2; }
+    .lp-subtitle { font-size: 15px; }
+    .lp-hero-features { flex-direction: column; gap: 12px; align-items: flex-start; width: 100%; }
+    .feat-item { width: 100%; }
+    .lp-actions { gap: 12px; }
+    .lp-actions .btn { width: 100%; justify-content: center; }
+    .grid-4 { grid-template-columns: 1fr; }
+    .steps-modern { grid-template-columns: 1fr; }
+    .master-stats { flex-wrap: wrap; gap: 24px; }
+    .glass-card { padding: 24px 16px; border-radius: 20px; }
+    .form-header h2 { font-size: 22px; }
+    .floating-trust { left: 0; right: 0; bottom: -30px; min-width: auto; padding: 16px 20px; }
+    .lp-section { padding: 60px 0; }
+    .section-header h2 { font-size: 28px; }
+    .btn-lg { padding: 14px 24px; font-size: 14px; white-space: nowrap; }
+    .gallery-main { height: 250px; }
+    .gallery-side img, .gallery-bottom img { height: 200px; }
   }
 </style>

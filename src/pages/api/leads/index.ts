@@ -49,7 +49,16 @@ export const GET: APIRoute = async ({ request }) => {
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
-    const { name, phone, message, utm_source, utm_medium, utm_campaign, pageUrl } = body;
+    const { name, phone, message, utm_source, utm_medium, utm_campaign, pageUrl, landingPage, referrer } = body;
+
+    let refHost: string | null = null;
+    if (typeof referrer === 'string' && referrer) {
+      try {
+        refHost = new URL(referrer).hostname;
+      } catch {
+        refHost = null;
+      }
+    }
 
     if (!name || !phone) {
       return new Response(JSON.stringify({ error: 'Name and phone required' }), {
@@ -64,10 +73,10 @@ export const POST: APIRoute = async ({ request }) => {
         method: 'Форма на сайте',
         contact: phone,
         comment: message || null,
-        utmSource: utm_source || null,
+        utmSource: utm_source || refHost || null,
         utmMedium: utm_medium || null,
         utmCampaign: utm_campaign || null,
-        pageUrl: pageUrl || null,
+        pageUrl: pageUrl || landingPage || null,
       },
     });
 

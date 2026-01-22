@@ -34,6 +34,39 @@ const serveStatic = (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = decodeURIComponent(url.pathname);
 
+  if (pathname === '/ceny' || pathname === '/ceny/') {
+    res.statusCode = 301;
+    res.setHeader('Location', '/uslugi/otdelka-bani');
+    res.end();
+    return true;
+  }
+
+  if (pathname === '/materialy' || pathname === '/materialy/' || pathname.startsWith('/materialy/')) {
+    res.statusCode = 301;
+    res.setHeader('Location', '/uslugi/otdelka-bani');
+    res.end();
+    return true;
+  }
+
+  if (pathname === '/uslugi' || pathname === '/uslugi/') {
+    res.statusCode = 301;
+    res.setHeader('Location', '/uslugi/otdelka-bani');
+    res.end();
+    return true;
+  }
+
+  if (
+    pathname.startsWith('/uslugi/') &&
+    pathname !== '/uslugi/otdelka-bani' &&
+    pathname !== '/uslugi/remont-bani' &&
+    pathname !== '/uslugi/otdelka-sauny'
+  ) {
+    res.statusCode = 301;
+    res.setHeader('Location', '/uslugi/otdelka-bani');
+    res.end();
+    return true;
+  }
+
   if (pathname === '/sitemap.xml') {
     res.statusCode = 301;
     res.setHeader('Location', '/sitemap-index.xml');
