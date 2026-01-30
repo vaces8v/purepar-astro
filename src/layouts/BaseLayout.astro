@@ -1,7 +1,7 @@
 ---
-import { Image } from 'astro:assets';
-import heroImg from '../assets/images/IMG-20250814-WA0004.jpg';
-import Analytics from '../components/Analytics.astro';
+import { Image } from "astro:assets";
+import heroImg from "../assets/images/IMG-20250814-WA0004.jpg";
+import Analytics from "../components/Analytics.astro";
 
 interface Props {
   title: string;
@@ -12,14 +12,15 @@ interface Props {
   heroTag?: string;
 }
 
-const { title, description, canonical, heroTitle, heroSubtitle, heroTag } = Astro.props;
-const siteName = 'PurePar';
+const { title, description, canonical, heroTitle, heroSubtitle, heroTag } =
+  Astro.props;
+const siteName = "PurePar";
 
 const CONTACT = {
-  phoneRaw: '79165835566',
-  phoneDisplay: '+7 (916) 583-55-66',
-  telegramUrl: 'https://t.me/79165835566',
-  whatsappUrl: 'https://wa.me/79165835566',
+  phoneRaw: "79165835566",
+  phoneDisplay: "+7 (916) 583-55-66",
+  telegramUrl: "https://t.me/79165835566",
+  whatsappUrl: "https://wa.me/79165835566",
 } as const;
 ---
 
@@ -38,34 +39,140 @@ const CONTACT = {
     <meta property="og:site_name" content={siteName} />
     <style is:global>
       :root {
-        --text: #1A1A1A;
+        --text: #1a1a1a;
         --text-muted: #666;
-        --bg: #FAFAFA;
-        --bg-warm: #F5F0EB;
-        --white: #FFFFFF;
-        --accent: #B8860B;
-        --accent-dark: #8B6914;
-        --accent-light: #F7E8D0;
-        --border: #E5E0D8;
-        --shadow: 0 8px 30px rgba(0,0,0,0.08);
+        --bg: #fafafa;
+        --bg-warm: #f5f0eb;
+        --white: #ffffff;
+        --accent: #b8860b;
+        --accent-dark: #8b6914;
+        --accent-light: #f7e8d0;
+        --border: #e5e0d8;
+        --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
         --radius: 16px;
         --radius-sm: 10px;
       }
-      html { scroll-behavior: smooth; }
-      *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html {
+        scroll-behavior: smooth;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
       body {
-        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family:
+          "Montserrat",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
         background: var(--bg);
         color: var(--text);
         line-height: 1.6;
         margin: 0;
       }
-      a { text-decoration: none; color: inherit; }
-      ul, ol { list-style: none; }
-      h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
-      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-      img { max-width: 100%; height: auto; display: block; }
-      main { padding-top: 68px; }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      ul,
+      ol {
+        list-style: none;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 700;
+        line-height: 1.2;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .lazy-media {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .lazy-media::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.18) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        transform: translateX(-100%);
+        animation: lazy-media-shimmer 1.2s ease-in-out infinite;
+        pointer-events: none;
+      }
+      .lazy-media.is-loaded::before,
+      .lazy-media[aria-busy="false"]::before {
+        animation: none;
+        opacity: 0;
+      }
+      @keyframes lazy-media-shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+      .lazy-media__placeholder,
+      .lazy-media__img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .lazy-media__placeholder {
+        filter: blur(18px);
+        transform: scale(1.06);
+        opacity: 1;
+        transition: opacity 420ms ease;
+      }
+      .lazy-media__img {
+        opacity: 0;
+        transition: opacity 420ms ease;
+      }
+      .lazy-media.is-loaded .lazy-media__img {
+        opacity: 1;
+      }
+      .lazy-media.is-loaded .lazy-media__placeholder {
+        opacity: 0;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .lazy-media::before {
+          animation: none;
+        }
+        .lazy-media__placeholder,
+        .lazy-media__img {
+          transition: none;
+        }
+      }
+      main {
+        padding-top: 68px;
+      }
       .header {
         position: fixed;
         top: 0;
@@ -91,14 +198,19 @@ const CONTACT = {
         font-weight: 700;
         font-size: 20px;
       }
-      .nav { display: flex; gap: 28px; }
+      .nav {
+        display: flex;
+        gap: 28px;
+      }
       .nav a {
         text-decoration: none;
         color: var(--text);
         font-weight: 500;
         font-size: 14px;
-              }
-      .nav a:hover { color: var(--accent); }
+      }
+      .nav a:hover {
+        color: var(--accent);
+      }
       .header-phone {
         text-decoration: none;
         color: var(--text);
@@ -106,8 +218,12 @@ const CONTACT = {
         font-size: 15px;
       }
       @media (max-width: 600px) {
-        .nav { display: none; }
-        .header-phone { display: none; }
+        .nav {
+          display: none;
+        }
+        .header-phone {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -124,30 +240,34 @@ const CONTACT = {
           <a href="/uslugi/otdelka-bani#gallery">Работы</a>
           <a href="/uslugi/otdelka-bani#contact-form">Заявка</a>
         </nav>
-        <a href={`tel:+${CONTACT.phoneRaw}`} class="header-phone">{CONTACT.phoneDisplay}</a>
+        <a href={`tel:+${CONTACT.phoneRaw}`} class="header-phone"
+          >{CONTACT.phoneDisplay}</a
+        >
       </div>
     </header>
 
     <main>
-      {heroTitle && (
-        <section class="page-hero">
-          <div class="page-hero-bg">
-            <Image
-              src={heroImg}
-              alt="Фон"
-              class="page-hero-bg-img"
-              widths={[768, 1024, 1280, 1600]}
-              sizes="100vw"
-            />
-            <div class="page-hero-overlay"></div>
-          </div>
-          <div class="container page-hero-content">
-            {heroTag && <span class="section-tag">{heroTag}</span>}
-            <h1>{heroTitle}</h1>
-            {heroSubtitle && <p>{heroSubtitle}</p>}
-          </div>
-        </section>
-      )}
+      {
+        heroTitle && (
+          <section class="page-hero">
+            <div class="page-hero-bg">
+              <Image
+                src={heroImg}
+                alt="Фон"
+                class="page-hero-bg-img"
+                widths={[768, 1024, 1280, 1600]}
+                sizes="100vw"
+              />
+              <div class="page-hero-overlay" />
+            </div>
+            <div class="container page-hero-content">
+              {heroTag && <span class="section-tag">{heroTag}</span>}
+              <h1>{heroTitle}</h1>
+              {heroSubtitle && <p>{heroSubtitle}</p>}
+            </div>
+          </section>
+        )
+      }
       <slot />
     </main>
 
@@ -158,7 +278,9 @@ const CONTACT = {
             <img src="/logo.png" alt="PurePar" width="36" height="36" />
             <span>PurePar</span>
           </a>
-          <p>Отделка и ремонт бань и саун под ключ в Москве и Московской области</p>
+          <p>
+            Отделка и ремонт бань и саун под ключ в Москве и Московской области
+          </p>
         </div>
         <div class="footer-nav">
           <h3>Услуги</h3>
@@ -171,7 +293,9 @@ const CONTACT = {
         <div class="footer-contact">
           <h3>Контакты</h3>
           <ul>
-            <li><a href={`tel:+${CONTACT.phoneRaw}`}>{CONTACT.phoneDisplay}</a></li>
+            <li>
+              <a href={`tel:+${CONTACT.phoneRaw}`}>{CONTACT.phoneDisplay}</a>
+            </li>
             <li><a href={CONTACT.whatsappUrl} target="_blank">WhatsApp</a></li>
             <li><a href={CONTACT.telegramUrl} target="_blank">Telegram</a></li>
           </ul>
@@ -198,165 +322,291 @@ const CONTACT = {
       </div>
     </footer>
 
-<style is:global>
-  .page-hero {
-    position: relative;
-    min-height: 340px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    margin-top: -80px;
-    padding-top: 80px;
-  }
-  .page-hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-  .page-hero-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    aspect-ratio: 16/9;
-  }
-  .page-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(26,26,26,0.88) 0%, rgba(26,26,26,0.7) 50%, rgba(184,134,11,0.25) 100%);
-  }
-  .page-hero-content {
-    position: relative;
-    z-index: 1;
-    padding: 60px 20px;
-  }
-  .page-hero-content h1 {
-    font-size: clamp(28px, 5vw, 42px);
-    font-weight: 800;
-    color: #fff;
-    margin: 16px 0;
-    line-height: 1.2;
-  }
-  .page-hero-content p {
-    color: rgba(255,255,255,0.8);
-    font-size: 16px;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-  .page-hero .section-tag {
-    display: inline-block;
-    background: rgba(184,134,11,0.2);
-    border: 1px solid rgba(184,134,11,0.4);
-    color: var(--accent-light);
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
+    <script is:inline>
+      (function () {
+        const BLANK_IMG =
+          "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 16px 28px;
-    border-radius: var(--radius-sm);
-    font-weight: 600;
-    font-size: 15px;
-    text-decoration: none;
+        function initLazyMedia(root) {
+          const scope = root || document;
+          const wrappers = Array.from(scope.querySelectorAll(".lazy-media"));
+
+          function loadWrapper(wrapper) {
+            const img = wrapper.querySelector(".lazy-media__img");
+            if (!img) return;
+            if (img.dataset.loaded === "true") return;
+
+            const src = img.getAttribute("data-src");
+            const srcset = img.getAttribute("data-srcset");
+            const sizes = img.getAttribute("data-sizes");
+
+            if (
+              img.getAttribute("src") !== BLANK_IMG &&
+              img.getAttribute("src")
+            ) {
+              wrapper.classList.add("is-loaded");
+              wrapper.setAttribute("aria-busy", "false");
+              wrapper.removeAttribute("aria-label");
+              img.dataset.loaded = "true";
+              return;
+            }
+
+            function onDone() {
+              wrapper.classList.add("is-loaded");
+              wrapper.setAttribute("aria-busy", "false");
+              wrapper.removeAttribute("aria-label");
+              img.dataset.loaded = "true";
+            }
+
+            img.addEventListener(
+              "load",
+              function () {
+                onDone();
+              },
+              { once: true },
+            );
+            img.addEventListener(
+              "error",
+              function () {
+                onDone();
+              },
+              { once: true },
+            );
+
+            if (src) img.setAttribute("src", src);
+            if (srcset) img.setAttribute("srcset", srcset);
+            if (sizes) img.setAttribute("sizes", sizes);
+
+            if (img.complete && img.naturalWidth > 0) onDone();
+          }
+
+          if (!("IntersectionObserver" in window)) {
+            wrappers.forEach(loadWrapper);
+            return;
+          }
+
+          const io = new IntersectionObserver(
+            (entries, obs) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                obs.unobserve(el);
+                loadWrapper(el);
+              });
+            },
+            { rootMargin: "300px 0px", threshold: 0.01 },
+          );
+
+          wrappers.forEach((wrapper) => {
+            if (wrapper.dataset.lazyBound === "true") return;
+            wrapper.dataset.lazyBound = "true";
+
+            const img = wrapper.querySelector(".lazy-media__img");
+            if (img && !img.getAttribute("src"))
+              img.setAttribute("src", BLANK_IMG);
+
+            io.observe(wrapper);
+          });
+        }
+
+        function onReady() {
+          initLazyMedia();
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", onReady);
+        } else {
+          onReady();
+        }
+
+        window.__initLazyMedia = initLazyMedia;
+      })();
+    </script>
+
+    <style is:global>
+      .page-hero {
+        position: relative;
+        min-height: 340px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+        margin-top: -80px;
+        padding-top: 80px;
+      }
+      .page-hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+      .page-hero-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        aspect-ratio: 16/9;
+      }
+      .page-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(26, 26, 26, 0.88) 0%,
+          rgba(26, 26, 26, 0.7) 50%,
+          rgba(184, 134, 11, 0.25) 100%
+        );
+      }
+      .page-hero-content {
+        position: relative;
+        z-index: 1;
+        padding: 60px 20px;
+      }
+      .page-hero-content h1 {
+        font-size: clamp(28px, 5vw, 42px);
+        font-weight: 800;
+        color: #fff;
+        margin: 16px 0;
+        line-height: 1.2;
+      }
+      .page-hero-content p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 16px;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+      .page-hero .section-tag {
+        display: inline-block;
+        background: rgba(184, 134, 11, 0.2);
+        border: 1px solid rgba(184, 134, 11, 0.4);
+        color: var(--accent-light);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 16px 28px;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        font-size: 15px;
+        text-decoration: none;
         border: none;
-    cursor: pointer;
-  }
-  .btn-primary {
-    background: var(--accent);
-    color: var(--white);
-  }
-  .btn-primary:hover {
-    background: var(--accent-dark);
-    transform: translateY(-2px);
-  }
-
-  .footer {
-    background: var(--text);
-    color: var(--white);
-    padding: 60px 0 0;
-    margin-top: 80px;
-  }
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
-    gap: 48px;
-  }
-  .footer-brand p {
-    color: rgba(255,255,255,0.7);
-    font-size: 14px;
-    margin-top: 16px;
-  }
-  .footer-brand .logo { color: var(--white); }
-  .footer-nav h3, .footer-contact h3 {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 16px;
-    color: rgba(255,255,255,0.7);
-  }
-  .footer-nav ul, .footer-contact ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .footer-nav li, .footer-contact li { margin-bottom: 10px; }
-  .footer-nav a, .footer-contact a {
-    color: rgba(255,255,255,0.85);
-    text-decoration: none;
-    font-size: 14px;
+        cursor: pointer;
       }
-  .footer-nav a:hover, .footer-contact a:hover { color: var(--accent-light); }
-  .footer-contact p {
-    color: rgba(255,255,255,0.5);
-    font-size: 13px;
-    margin-top: 16px;
-  }
-  .footer-links {
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding: 20px 0;
-  }
-  .footer-links-inner {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  .footer-geo, .footer-legal {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .footer-links a {
-    color: rgba(255,255,255,0.6);
-    text-decoration: none;
-    font-size: 13px;
+      .btn-primary {
+        background: var(--accent);
+        color: var(--white);
       }
-  .footer-links a:hover { color: var(--accent-light); }
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding: 20px 0;
-    text-align: center;
-    font-size: 13px;
-    color: rgba(255,255,255,0.65);
-  }
+      .btn-primary:hover {
+        background: var(--accent-dark);
+        transform: translateY(-2px);
+      }
 
-  @media (max-width: 900px) {
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-  }
-  @media (max-width: 600px) {
-    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-  }
-</style>
-<Analytics />
+      .footer {
+        background: var(--text);
+        color: var(--white);
+        padding: 60px 0 0;
+        margin-top: 80px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr 1fr;
+        gap: 48px;
+      }
+      .footer-brand p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        margin-top: 16px;
+      }
+      .footer-brand .logo {
+        color: var(--white);
+      }
+      .footer-nav h3,
+      .footer-contact h3 {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .footer-nav ul,
+      .footer-contact ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .footer-nav li,
+      .footer-contact li {
+        margin-bottom: 10px;
+      }
+      .footer-nav a,
+      .footer-contact a {
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        font-size: 14px;
+      }
+      .footer-nav a:hover,
+      .footer-contact a:hover {
+        color: var(--accent-light);
+      }
+      .footer-contact p {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 13px;
+        margin-top: 16px;
+      }
+      .footer-links {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px 0;
+      }
+      .footer-links-inner {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .footer-geo,
+      .footer-legal {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 13px;
+      }
+      .footer-links a:hover {
+        color: var(--accent-light);
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px 0;
+        text-align: center;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      @media (max-width: 900px) {
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 32px;
+        }
+      }
+      @media (max-width: 600px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+      }
+    </style>
+    <Analytics />
   </body>
 </html>

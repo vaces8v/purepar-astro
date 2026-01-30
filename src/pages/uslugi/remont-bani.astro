@@ -1,7 +1,13 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import masterImg from "../../assets/images/master.jpg";
+
+import gallery1Img from "../../assets/images/20251219_161625.jpg";
+import gallery2Img from "../../assets/images/20251219_161638.jpg";
+import gallery3Img from "../../assets/images/20251219_161652.jpg";
+import gallery5Img from "../../assets/images/20251008_122449.jpg";
+import gallery7Img from "../../assets/images/20250919_125436.jpg";
 
 const YM_ID = Number(import.meta.env.PUBLIC_YANDEX_METRICA_ID ?? 105996360);
 
@@ -51,6 +57,37 @@ const master = {
   quote:
     "«Ремонт бани требует большего мастерства, чем отделка новой. Нужно не просто закрыть дефекты, а найти причину их появления. Мы проводим тщательную дефектовку, чтобы ваша баня снова стала безопасной и долговечной.»",
 };
+
+const galleryImages = [
+  gallery1Img,
+  gallery3Img,
+  gallery5Img,
+  gallery7Img,
+  gallery2Img,
+] as const;
+
+const galleryPlaceholders = await Promise.all(
+  galleryImages.map((img) =>
+    getImage({
+      src: img,
+      width: 64,
+      format: "webp",
+      quality: 30,
+    }),
+  ),
+);
+
+const galleryFull = await Promise.all(
+  galleryImages.map((img) =>
+    getImage({
+      src: img,
+      widths: [640, 960, 1280, 1600],
+      sizes: "(max-width: 1024px) 100vw, 50vw",
+      format: "webp",
+      quality: "high",
+    }),
+  ),
+);
 ---
 
 <BaseLayout title={service.metaTitle} description={service.metaDescription}>
@@ -412,15 +449,115 @@ const master = {
       </div>
       <div class="gallery-mosaic">
         <div class="gallery-main reveal">
-          <img src="/20251219_161625.jpg" alt="Ремонт бани" loading="lazy" />
+          <div
+            class="lazy-media"
+            aria-busy="true"
+            aria-label="Загрузка изображения"
+          >
+            <img
+              src={galleryPlaceholders[0].src}
+              alt=""
+              class="lazy-media__placeholder"
+              aria-hidden="true"
+            />
+            <img
+              alt="Ремонт бани"
+              class="lazy-media__img"
+              loading="lazy"
+              decoding="async"
+              data-src={galleryFull[0].src}
+              data-srcset={galleryFull[0].attributes.srcset}
+              data-sizes={galleryFull[0].attributes.sizes}
+            />
+          </div>
         </div>
         <div class="gallery-side reveal" style="transition-delay: 0.1s;">
-          <img src="/20251219_161652.jpg" alt="Ремонт бани" loading="lazy" />
-          <img src="/20251008_122449.jpg" alt="Ремонт бани" loading="lazy" />
+          <div
+            class="lazy-media"
+            aria-busy="true"
+            aria-label="Загрузка изображения"
+          >
+            <img
+              src={galleryPlaceholders[1].src}
+              alt=""
+              class="lazy-media__placeholder"
+              aria-hidden="true"
+            />
+            <img
+              alt="Ремонт бани"
+              class="lazy-media__img"
+              loading="lazy"
+              decoding="async"
+              data-src={galleryFull[1].src}
+              data-srcset={galleryFull[1].attributes.srcset}
+              data-sizes={galleryFull[1].attributes.sizes}
+            />
+          </div>
+          <div
+            class="lazy-media"
+            aria-busy="true"
+            aria-label="Загрузка изображения"
+          >
+            <img
+              src={galleryPlaceholders[2].src}
+              alt=""
+              class="lazy-media__placeholder"
+              aria-hidden="true"
+            />
+            <img
+              alt="Ремонт бани"
+              class="lazy-media__img"
+              loading="lazy"
+              decoding="async"
+              data-src={galleryFull[2].src}
+              data-srcset={galleryFull[2].attributes.srcset}
+              data-sizes={galleryFull[2].attributes.sizes}
+            />
+          </div>
         </div>
         <div class="gallery-bottom reveal" style="transition-delay: 0.2s;">
-          <img src="/20250919_125436.jpg" alt="Ремонт бани" loading="lazy" />
-          <img src="/20251219_161638.jpg" alt="Ремонт бани" loading="lazy" />
+          <div
+            class="lazy-media"
+            aria-busy="true"
+            aria-label="Загрузка изображения"
+          >
+            <img
+              src={galleryPlaceholders[3].src}
+              alt=""
+              class="lazy-media__placeholder"
+              aria-hidden="true"
+            />
+            <img
+              alt="Ремонт бани"
+              class="lazy-media__img"
+              loading="lazy"
+              decoding="async"
+              data-src={galleryFull[3].src}
+              data-srcset={galleryFull[3].attributes.srcset}
+              data-sizes={galleryFull[3].attributes.sizes}
+            />
+          </div>
+          <div
+            class="lazy-media"
+            aria-busy="true"
+            aria-label="Загрузка изображения"
+          >
+            <img
+              src={galleryPlaceholders[4].src}
+              alt=""
+              class="lazy-media__placeholder"
+              aria-hidden="true"
+            />
+            <img
+              alt="Ремонт бани"
+              class="lazy-media__img"
+              loading="lazy"
+              decoding="async"
+              data-src={galleryFull[4].src}
+              data-srcset={galleryFull[4].attributes.srcset}
+              data-sizes={galleryFull[4].attributes.sizes}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -1087,6 +1224,9 @@ const master = {
     border-radius: 24px;
     display: block;
   }
+  .gallery-mosaic .lazy-media {
+    border-radius: 24px;
+  }
   .gallery-main {
     height: 500px;
     overflow: hidden;
@@ -1097,7 +1237,7 @@ const master = {
     gap: 24px;
     height: 500px;
   }
-  .gallery-side img {
+  .gallery-side .lazy-media {
     height: calc(50% - 12px);
   }
   .gallery-bottom {
@@ -1197,6 +1337,10 @@ const master = {
       height: auto;
       grid-template-columns: 1fr;
     }
+    .gallery-side .lazy-media,
+    .gallery-bottom .lazy-media {
+      height: 240px;
+    }
     .gallery-main {
       height: 350px;
     }
@@ -1266,8 +1410,8 @@ const master = {
     .gallery-main {
       height: 250px;
     }
-    .gallery-side img,
-    .gallery-bottom img {
+    .gallery-side .lazy-media,
+    .gallery-bottom .lazy-media {
       height: 200px;
     }
   }
